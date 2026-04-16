@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+class PrimaryButton extends StatelessWidget {
+
+  const PrimaryButton({
+    this.icon,
+    this.enabled = true,
+    this.onPressed,
+    this.text,
+    this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+    super.key
+  });
+
+  final IconData? icon;
+  final VoidCallback? onPressed;
+  final bool enabled;
+  final String? text;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    final (colors, textTheme) = (Theme.of(context).colorScheme,
+    Theme.of(context).textTheme);
+    return InkWell(
+      onTap: enabled ? onPressed : null,
+      child: Container(
+        padding: padding,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: colors.primaryContainer.withAlpha(enabled ? 1000 : 200),
+        ),
+        child: Row(
+          spacing: 8,
+          children: [
+            if(icon != null)
+              Icon(
+                icon,
+                color: colors.onPrimaryContainer.withAlpha(enabled ? 1000 : 200)
+              ),
+            if(text != null)
+              Text(
+                text!,
+                style: textTheme.bodyMedium?.apply(color: colors
+                    .onPrimaryContainer.withAlpha(enabled ? 1000 : 200)),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
