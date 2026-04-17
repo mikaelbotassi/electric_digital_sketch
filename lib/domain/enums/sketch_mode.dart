@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 enum SketchMode {
-  select(TablerIcons.handClick, showActive: true),
-  erase(TablerIcons.eraser, showActive: true),
-  brush(TablerIcons.brush, showActive: true),
-  text(TablerIcons.textRecognition),
-  shapes(TablerIcons.shape),
-  layers(TablerIcons.stackFront);
+  select('Seleção', TablerIcons.handClick),
+  brush('Pincel', TablerIcons.brush),
+  erase('Borracha',TablerIcons.eraser),
+  changes('Alterações', TablerIcons.listNumbers),
+  text('Texto', TablerIcons.textRecognition),
+  shapes('Formas', TablerIcons.shape),
+  layers('Camadas', TablerIcons.stackFront);
 
-  const SketchMode(this.icon, {this.showActive = false});
+  const SketchMode(this.title, this.icon);
 
   final IconData icon;
-  final bool showActive;
+  final String title;
 
 
 }

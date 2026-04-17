@@ -40,10 +40,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   spacing: 8,
                   children: [
                     IconButtonWidget(
-                      icon: TablerIcons.listNumbers,
-                      onPressed: controller.toggleChangeList,
-                    ),
-                    IconButtonWidget(
                       icon: TablerIcons.trash,
                       enabled: controller.painterController.value.selectedItem != null,
                       onPressed: controller.removeSelectedItem,

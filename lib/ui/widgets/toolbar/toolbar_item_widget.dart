@@ -15,18 +15,18 @@ class ToolbarItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final isActive = mode == controller.mode && mode.showActive;
+    final isActive = mode == controller.mode;
     return InkWell(
       onTap: () => controller.setMode(mode),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isActive ? colors.primaryContainer : Colors.transparent,
+          color: isActive ? colors.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Icon(
           mode.icon,
-            color: isActive ? colors.onPrimaryContainer : colors.primary
+            color: isActive ? colors.onPrimary : colors.primary
         ),
       ),
     );

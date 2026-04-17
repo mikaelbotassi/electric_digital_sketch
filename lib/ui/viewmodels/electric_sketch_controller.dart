@@ -11,21 +11,25 @@ class ElectricSketchController extends ChangeNotifier {
   SketchMode _mode = SketchMode.select;
   SketchMode get mode => _mode;
   void setMode(SketchMode mode) {
+    switch(mode){
+      case SketchMode.erase:
+        if(painterController.isDrawing) painterController.toggleDrawing();
+        painterController.toggleErasing();
+        break;
+      case SketchMode.brush:
+        if(painterController.isErasing) painterController.toggleErasing();
+        painterController.toggleDrawing();
+        break;
+      case SketchMode.changes:
+        if(painterController.isErasing) painterController.toggleErasing();
+        if(painterController.isDrawing) painterController.toggleDrawing();
+        break;
+      default:
+        if(painterController.isErasing) painterController.toggleErasing();
+        if(painterController.isDrawing) painterController.toggleDrawing();
+        break;
+    }
     _mode = mode;
-    notifyListeners();
-  }
-
-  bool _changeListIsOpen = false;
-  bool get changeListIsOpen => _changeListIsOpen;
-  void toggleChangeList() {
-    _changeListIsOpen = !_changeListIsOpen;
-    notifyListeners();
-  }
-
-  bool _settingsIsOpen = false;
-  bool get settingsIsOpen => _settingsIsOpen;
-  void toggleSettings() {
-    _settingsIsOpen = !_settingsIsOpen;
     notifyListeners();
   }
 
@@ -48,56 +52,13 @@ class ElectricSketchController extends ChangeNotifier {
     }
     return true;
   }
-
   void redo(){
     painterController.redo();
     notifyListeners();
   }
 
-  Future<void> importData() async {
-    if(painterData.isEmpty) return;
-    await painterController.importPainter(painterData);
-    notifyListeners();
-    return;
-  }
-
-  Future<Map<String, dynamic>> exportPainter() async {
-    final painter = await painterController.exportPainter();
-    return painter;
-  }
-
-  Map<String, dynamic> painterData = {};
-
-  bool get isErasing => painterController.isErasing;
-  void toggleErasing(){
-    painterController.toggleErasing();
-    notifyListeners();
-  }
-
-  bool get isDrawing => painterController.isDrawing;
-  void toggleDrawing(){
-    painterController.toggleDrawing();
-    notifyListeners();
-  }
-
-  bool get editingText => painterController.editingText;
-  bool get addingText => painterController.addingText;
   Future<void> addText(String text) async {
     await painterController.addText(text);
-    notifyListeners();
-  }
-
-  bool _layersIsOpen = false;
-  bool get layersIsOpen => _layersIsOpen;
-  void toggleLayers() {
-    _layersIsOpen = !_layersIsOpen;
-    notifyListeners();
-  }
-
-  bool _shapesIsOpen = false;
-  bool get shapesIsOpen => _shapesIsOpen;
-  void toggleShapes() {
-    _shapesIsOpen = !_shapesIsOpen;
     notifyListeners();
   }
 

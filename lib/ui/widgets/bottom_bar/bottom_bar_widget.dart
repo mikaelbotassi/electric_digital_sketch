@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:electric_digital_sketch/pages/add_edit_text_page.dart';
+import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/button.dart';
+import 'package:electric_digital_sketch/ui/widgets/change_list/changes_list.dart';
 import 'package:flutter/material.dart';
-import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class BottomBarWidget extends StatelessWidget {
 
@@ -17,59 +14,55 @@ class BottomBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
-      color: const Color(0xFF232323),
-      padding: EdgeInsets.only(
-        bottom: Platform.isIOS ? 20 : 10,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+        color: Colors.black,
       ),
       child: SafeArea(
         top: false,
-        child: IntrinsicHeight(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Button(
-                icon: TablerIcons.eraser,
-                onPressed: controller.toggleErasing,
-                enabled: controller.isErasing,
-              ),
-              Button(
-                icon: TablerIcons.scribble,
-                onPressed: controller.toggleDrawing,
-                enabled: controller.isDrawing,
-              ),
-              Button(
-                icon: TablerIcons.textRecognition,
-                onPressed: () async {
-                  var text = '';
-                  await Navigator.push(
-                    context,
-                    PageRouteBuilder<Object>(
-                      opaque: false,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          AddEditTextPage(onDone: (textFunction) {
-                            text = textFunction;
-                          }),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          ),
+        child: ClipRect(
+          child: AnimatedSize(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            alignment: Alignment.bottomLeft,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.white24),
                     ),
-                  );
-                  await controller.addText(text);
-                },
-                enabled: controller.editingText || controller.addingText,
-              ),
-              Button(
-                icon: TablerIcons.list,
-                onPressed: controller.toggleSettings,
-              ),
-            ],
+                  ),
+                  child: Text(
+                    controller.mode.title,
+                    style: textTheme.bodyMedium?.apply(color: Colors.grey),
+                  ),
+                ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 300),
+                  child: SingleChildScrollView(
+                    child: child,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  Widget get child{
+    if(controller.mode == SketchMode.changes){
+      return ChangesList(controller: controller.painterController);
+    }
+    return const SizedBox.shrink();
+  }
+
 }
