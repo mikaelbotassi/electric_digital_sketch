@@ -35,15 +35,28 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    return SizedBox(
+    return Container(
       width: _toolbarWidth,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade900.withAlpha(50),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           InkWell(
             onTap: () => setState(() => _collapsed = !_collapsed),
             child: Container(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: _collapsed ? 16: 8
+              ),
               decoration: BoxDecoration(
                 color: colors.primary,
                 borderRadius: BorderRadius.circular(4),
@@ -60,19 +73,11 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
             curve: Curves.easeOutCubic,
             child: Container(
               padding: const EdgeInsets.all(_toolbarPadding),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.black,
-                borderRadius: const BorderRadius.vertical(
+                borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(4),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade900.withAlpha(50),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
               ),
               child: Column(
                 spacing: _toolbarItemSpacing,
