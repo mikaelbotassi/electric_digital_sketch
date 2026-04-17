@@ -1,5 +1,5 @@
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/bottom_bar_body_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/bottom_bar_content_factory.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarWidget extends StatelessWidget {
@@ -46,7 +46,7 @@ class BottomBarWidget extends StatelessWidget {
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 300),
                   child: SingleChildScrollView(
-                    child: BottomBarBodyWidget(controller: controller),
+                    child: BottomBarContentFactory.build(controller: controller)
                   ),
                 ),
               ],

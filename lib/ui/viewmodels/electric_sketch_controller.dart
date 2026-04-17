@@ -11,26 +11,44 @@ class ElectricSketchController extends ChangeNotifier {
   SketchMode _mode = SketchMode.select;
   SketchMode get mode => _mode;
   void setMode(SketchMode mode) {
-    switch(mode){
-      case SketchMode.erase:
-        if(painterController.isDrawing) painterController.toggleDrawing();
-        painterController.toggleErasing();
-        break;
+    _disablePainterTools();
+
+    switch (mode) {
       case SketchMode.brush:
-        if(painterController.isErasing) painterController.toggleErasing();
-        painterController.toggleDrawing();
-        break;
+        _enableDrawing();
+      case SketchMode.erase:
+        _enableErasing();
+      case SketchMode.select:
       case SketchMode.changes:
-        if(painterController.isErasing) painterController.toggleErasing();
-        if(painterController.isDrawing) painterController.toggleDrawing();
-        break;
-      default:
-        if(painterController.isErasing) painterController.toggleErasing();
-        if(painterController.isDrawing) painterController.toggleDrawing();
-        break;
+      case SketchMode.text:
+      case SketchMode.shapes:
+      case SketchMode.layers:
     }
+
     _mode = mode;
     notifyListeners();
+  }
+
+  void _disablePainterTools() {
+    if (painterController.isErasing) {
+      painterController.toggleErasing();
+    }
+
+    if (painterController.isDrawing) {
+      painterController.toggleDrawing();
+    }
+  }
+
+  void _enableDrawing() {
+    if (!painterController.isDrawing) {
+      painterController.toggleDrawing();
+    }
+  }
+
+  void _enableErasing() {
+    if (!painterController.isErasing) {
+      painterController.toggleErasing();
+    }
   }
 
   void removeSelectedItem(){
