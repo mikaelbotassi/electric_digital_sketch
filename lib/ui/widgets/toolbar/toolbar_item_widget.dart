@@ -17,7 +17,7 @@ class ToolbarItemWidget extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final isActive = mode == controller.mode;
     return InkWell(
-      onTap: () => controller.setMode(mode),
+      onTap: () => controller.setMode(mode, context),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

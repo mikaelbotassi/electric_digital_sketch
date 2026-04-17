@@ -21,6 +21,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final (colors, textTheme) = (Theme.of(context).colorScheme,
     Theme.of(context).textTheme);
+    final iconSize = text != null ? 16.0 : 24.0;
     return InkWell(
       onTap: enabled ? onPressed : null,
       child: Container(
@@ -35,7 +36,9 @@ class PrimaryButton extends StatelessWidget {
             if(icon != null)
               Icon(
                 icon,
-                color: colors.onPrimaryContainer.withAlpha(enabled ? 1000 : 200)
+                color: colors.onPrimaryContainer
+                  .withAlpha(enabled ? 1000 : 200),
+                size: iconSize,
               ),
             if(text != null)
               Text(

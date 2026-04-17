@@ -1,4 +1,4 @@
-import 'package:electric_digital_sketch/ui/pages/result_page.dart';
+import 'package:electric_digital_sketch/ui/result_page.dart';
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
 import 'package:electric_digital_sketch/ui/widgets/app_bar/undo_redo_button_group_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
