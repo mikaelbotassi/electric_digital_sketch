@@ -4,9 +4,9 @@ class IconButtonWidget extends StatelessWidget {
 
   const IconButtonWidget({
     this.icon,
+    this.color,
     this.enabled = true,
     this.onPressed,
-    this.text,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
     super.key
   });
@@ -14,13 +14,14 @@ class IconButtonWidget extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onPressed;
   final bool enabled;
-  final String? text;
   final EdgeInsetsGeometry padding;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final (colors, textTheme) = (Theme.of(context).colorScheme,
     Theme.of(context).textTheme);
+    final color = this.color ?? colors.onSurface;
     return InkWell(
       onTap: enabled ? onPressed : null,
       child: Padding(
@@ -31,13 +32,7 @@ class IconButtonWidget extends StatelessWidget {
             if(icon != null)
               Icon(
                 icon,
-                color: enabled ? Colors.white : Colors.grey,
-              ),
-            if(text != null)
-              Text(
-                text!,
-                style: textTheme.bodyMedium?.apply(color:
-                enabled ? Colors.white : Colors.grey),
+                color: enabled ? color : color.withAlpha(100),
               ),
           ],
         ),

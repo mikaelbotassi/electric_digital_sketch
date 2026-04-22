@@ -25,7 +25,7 @@ class AddTextPageHeader extends StatelessWidget {
           ),
           Text(
             'Adicionar Texto',
-            style: textTheme.titleLarge?.apply(color: Colors.white)
+            style: textTheme.titleLarge
           )
         ]
       ),

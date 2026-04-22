@@ -44,7 +44,7 @@ class _DoubleSwitchState extends State<DoubleSwitch> {
           children: [
             Text(
               widget.label,
-              style: textTheme.bodyMedium?.apply(color: Colors.white)
+              style: textTheme.bodyMedium?.apply(color: colors.onSurface)
             ),
             ValueListenableBuilder(
               valueListenable: doubleNotifier,
@@ -61,7 +61,9 @@ class _DoubleSwitchState extends State<DoubleSwitch> {
                   ),
                   Text(
                       '${doubleNotifier.value.toStringAsFixed(0)} px',
-                      style: textTheme.bodyMedium?.apply(color: Colors.grey)
+                      style: textTheme.bodyMedium?.apply(
+                        color: colors.onSurface.withAlpha(100)
+                      )
                   )
                 ],
               ),

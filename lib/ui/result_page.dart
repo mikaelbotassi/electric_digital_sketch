@@ -6,13 +6,12 @@ class ResultPage extends StatelessWidget {
   final Uint8List image;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
+        title: Text(
           'Resultado',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: textTheme.titleLarge,
         ),
       ),
       body: Center(

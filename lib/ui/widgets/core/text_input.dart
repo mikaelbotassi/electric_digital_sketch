@@ -27,18 +27,18 @@ class _TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
-      color: Colors.black,
+      color: colors.surfaceContainerLowest,
       padding: const EdgeInsets.all(16),
       child: TextField(
         keyboardType: TextInputType.text,
         focusNode: focusNode,
         controller: widget.controller,
         autofocus: true,
-        style: const TextStyle(color: Colors.white),
-        cursorColor: Colors.white,
-        decoration: const InputDecoration(
-          fillColor: Colors.black,
+        style: TextStyle(color: colors.onSurface),
+        decoration: InputDecoration(
+          fillColor: colors.surfaceContainerLowest,
           filled: true,
           border: InputBorder.none,
         ),

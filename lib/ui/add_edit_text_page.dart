@@ -22,7 +22,6 @@ class _AddEditTextPageState extends State<AddEditTextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
       body: SafeArea(
         child: Stack(
           children: [

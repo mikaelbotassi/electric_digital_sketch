@@ -31,7 +31,6 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, _) => Scaffold(
-        backgroundColor: Colors.grey.shade800.withValues(alpha: 0.6),
         appBar: AppBarWidget(controller: controller),
         bottomNavigationBar: BottomBarWidget(controller: controller),
         body: Stack(
@@ -45,30 +44,6 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
               left: 12,
               child: ToolbarWidget(controller: controller)
             ),
-            // if (controller.changeListIsOpen)
-            //   Positioned.fill(
-            //     child: Align(
-            //       alignment: Alignment.topLeft,
-            //       child: ChangesList(controller: controller.painterController),
-            //     ),
-            //   ),
-            // Positioned.fill(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: ColoredBox(
-            //       color: Colors.grey.shade900,
-            //       child: Options(
-            //         controller: controller.painterController,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Positioned.fill(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: Settings(controller: controller),
-            //   ),
-            // ),
           ],
         ),
       ),

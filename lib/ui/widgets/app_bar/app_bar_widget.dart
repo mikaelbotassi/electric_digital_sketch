@@ -18,12 +18,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return ValueListenableBuilder(
       valueListenable: controller.painterController,
       builder: (context, value, child) {
         return Container(
           padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-          color: Colors.black87,
+          color: colors.surfaceContainerLowest,
           child: SafeArea(
             bottom: false,
             child: Row(
@@ -31,9 +32,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 IconButton(
                   onPressed: onReturn ?? () => Navigator.pop(context),
-                  icon: const Icon(
+                  icon: Icon(
                     TablerIcons.chevronLeft,
-                    color: Colors.white,
+                    color: colors.onSurfaceVariant,
                   )
                 ),
                 Row(

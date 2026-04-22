@@ -13,12 +13,13 @@ class BottomBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final (colors, textTheme) = (theme.colorScheme, theme.textTheme);
 
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-        color: Colors.black,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+        color: colors.surfaceContainerLowest,
       ),
       child: SafeArea(
         top: false,
@@ -33,14 +34,16 @@ class BottomBarWidget extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     border: Border(
-                      bottom: BorderSide(color: Colors.white24),
+                      bottom: BorderSide(color: colors.surfaceBright),
                     ),
                   ),
                   child: Text(
                     controller.mode.title,
-                    style: textTheme.bodyMedium?.apply(color: Colors.grey),
+                    style: textTheme.bodyMedium?.apply(
+                      color: colors.onSurfaceVariant.withAlpha(100)
+                    ),
                   ),
                 ),
                 ConstrainedBox(

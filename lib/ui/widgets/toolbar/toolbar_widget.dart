@@ -1,6 +1,9 @@
-import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
-import 'package:electric_digital_sketch/ui/widgets/toolbar/toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/brush_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/changes_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/erase_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/select_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/text_toolbar_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
@@ -73,15 +76,21 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
             curve: Curves.easeOutCubic,
             child: Container(
               padding: const EdgeInsets.all(_toolbarPadding),
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.vertical(
+              decoration: BoxDecoration(
+                color: colors.surfaceContainerLowest,
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(4),
                 ),
               ),
               child: Column(
                 spacing: _toolbarItemSpacing,
-                children: items,
+                children: [
+                  SelectToolbarItemWidget(controller: widget.controller),
+                  BrushToolbarItemWidget(controller: widget.controller),
+                  EraseToolbarItemWidget(controller: widget.controller),
+                  ChangesToolbarItemWidget(controller: widget.controller),
+                  TextToolbarItemWidget(controller: widget.controller)
+                ],
               ),
             ),
             builder: (context, factor, child) {
@@ -98,13 +107,4 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
       ),
     );
   }
-
-  List<Widget> get items => SketchMode.values
-      .map(
-        (mode) => ToolbarItemWidget(
-          mode: mode,
-          controller: widget.controller,
-        ),
-      )
-      .toList();
 }

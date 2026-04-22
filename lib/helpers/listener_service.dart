@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:electric_digital_sketch/pages/add_edit_text_page.dart';
+import 'package:electric_digital_sketch/ui/add_edit_text_page.dart';
 import 'package:electric_digital_sketch/widgets/select_image.dart';
 // ignore: directives_ordering
 import 'package:flutter/material.dart';
@@ -29,25 +29,17 @@ class ListenerService {
   }
 
   Future<void> changeTextItemValue(TextItem item) async {
-    var text = '';
-    await Navigator.push(
+    final text = await Navigator.push(
       context,
-      PageRouteBuilder<Object>(
+      PageRouteBuilder<String>(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) =>
             AddEditTextPage(
-          onDone: (String textFunction) {
-            text = textFunction;
-          },
           defaultText: item.text,
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(
-          opacity: animation,
-          child: child,
         ),
       ),
     );
+    if(text == null) controller.removeItem(layerIndex: item.layer.index);
     final newItem = item.copyWith(text: text);
     controller.changeTextValues(newItem);
   }

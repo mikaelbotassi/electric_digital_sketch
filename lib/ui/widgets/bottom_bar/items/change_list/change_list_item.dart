@@ -10,6 +10,8 @@ class ChangeListItem extends StatelessWidget {
 
   final int index;
   final PainterController controller;
+  
+  bool get active => controller.changeActions.value.index == index;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ChangeListItem extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         decoration: BoxDecoration(
-          color: value.index == index ? colors.primary : null,
+          color: active ? colors.primary : null,
           border: Border(
             bottom: BorderSide(color: colors.primary),
             top: BorderSide(color: colors.primary),
@@ -33,7 +35,9 @@ class ChangeListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(text,
-          style: textTheme.bodyMedium?.apply(color: Colors.white),
+          style: textTheme.bodyMedium?.apply(
+            color: active ? colors.onPrimary : colors.primary
+          ),
         ),
       ),
     );

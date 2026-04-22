@@ -6,6 +6,7 @@ class TextButtonWidget extends StatelessWidget {
     this.icon,
     this.text,
     this.enabled = true,
+    this.color,
     this.onPressed,
     super.key
   });
@@ -14,11 +15,15 @@ class TextButtonWidget extends StatelessWidget {
   final String? text;
   final VoidCallback? onPressed;
   final bool enabled;
+  final Color?  color;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final (textTheme, colors) = (theme.textTheme, theme.colorScheme);
     final iconSize = text != null ? 16.0 : 24.0;
+    final color = this.color ?? colors.onSurface;
+    final validatedColor = enabled ? color : color.withAlpha(100);
     return InkWell(
       onTap: enabled ? onPressed : null,
       child: Padding(
@@ -26,10 +31,10 @@ class TextButtonWidget extends StatelessWidget {
         child: Row(
           spacing: 8,
           children: [
-            if(icon != null) Icon(icon, color: Colors.white, size: iconSize),
+            if(icon != null) Icon(icon, color: validatedColor, size: iconSize),
             if(text != null) Text(
               text!,
-                style: textTheme.bodyMedium?.apply(color: Colors.white)
+                style: textTheme.bodyMedium?.apply(color: validatedColor)
               )
           ],
         ),

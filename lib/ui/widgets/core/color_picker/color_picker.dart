@@ -46,13 +46,13 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+    final (textTheme, colors) = (theme.textTheme, theme.colorScheme);
     return Row(
       spacing: 12,
       children: [
         Text(
           widget.label,
-          style: textTheme.bodyMedium?.apply(color: Colors.white),
+          style: textTheme.bodyMedium,
         ),
         GestureDetector(
           onTap: openColorPicker,
@@ -62,14 +62,16 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
             decoration: BoxDecoration(
               color: selectedColor,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.white),
+              border: Border.all(color: colors.onSurfaceVariant.withAlpha(100)),
             ),
           ),
         ),
         Text(
           '#${selectedColor.toARGB32().toRadixString(16)
             .padLeft(8, '0').toUpperCase()}',
-          style: textTheme.bodyMedium?.apply(color: Colors.grey),
+          style: textTheme.bodyMedium?.apply(
+            color: colors.onSurface.withAlpha(100)
+          ),
         ),
       ],
     );
