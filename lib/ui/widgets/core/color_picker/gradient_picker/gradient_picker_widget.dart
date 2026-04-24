@@ -1,10 +1,10 @@
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/color_stop_preview.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/direction_buttons.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/gradient_stop_range.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/direction_option.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/gradient_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/gradient_stop.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/viewmodels/gradient_picker_controller.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/color_stop_preview.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/direction_buttons.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_stop_range.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -39,6 +39,12 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
       initialStops: widget.stops
     );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override

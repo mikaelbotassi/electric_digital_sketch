@@ -42,14 +42,17 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         'Escolha uma cor',
         style: textTheme.titleLarge?.apply(color: colors.onSurface.withAlpha(200))
       ),
-      content: SingleChildScrollView(
-        child: isGradient ? GradientPickerWidget() : ColorPicker(
-          pickerColor: selectedColor,
-          onColorChanged: (color) {
-            selectedColor = color;
-          },
-          displayThumbColor: true,
-          pickerAreaHeightPercent: 0.8,
+      content: SizedBox(
+        width: 360,
+        child: SingleChildScrollView(
+          child: isGradient ? GradientPickerWidget() : ColorPicker(
+            pickerColor: selectedColor,
+            onColorChanged: (color) {
+              selectedColor = color;
+            },
+            displayThumbColor: true,
+            pickerAreaHeightPercent: 0.8,
+          ),
         ),
       ),
       actions: [
