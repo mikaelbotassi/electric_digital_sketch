@@ -45,7 +45,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       content: SizedBox(
         width: 360,
         child: SingleChildScrollView(
-          child: isGradient ? GradientPickerWidget() : ColorPicker(
+          child: !isGradient ? GradientPickerWidget() : ColorPicker(
             pickerColor: selectedColor,
             onColorChanged: (color) {
               selectedColor = color;

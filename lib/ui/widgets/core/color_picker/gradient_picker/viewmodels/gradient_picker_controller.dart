@@ -57,7 +57,6 @@ class GradientPickerController extends ChangeNotifier{
   }
 
   void moveStop(double delta) {
-
     selectedStop.position = (selectedStop.position + delta)
       .clamp(0, 1).toDouble();
     notifyListeners();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:electric_digital_sketch/helpers/listener_service.dart';
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
 import 'package:electric_digital_sketch/ui/widgets/app_bar/app_bar_widget.dart';
@@ -21,7 +23,7 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
   @override
   void initState() {
     super.initState();
-    ListenerService().listen(controller.painterController, context);
+    unawaited(ListenerService().listen(controller.painterController, context));
   }
 
   @override
@@ -31,6 +33,7 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, _) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBarWidget(controller: controller),
         bottomNavigationBar: BottomBarWidget(controller: controller),
         body: Stack(

@@ -2,15 +2,16 @@ import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_pi
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/gradient_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/gradient_stop.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/viewmodels/gradient_picker_controller.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/color_stop_preview.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/direction_buttons.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_color_menu.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_stop_range.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/palette/stop_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class GradientPickerWidget extends StatefulWidget {
   const GradientPickerWidget({
-    this.direction = GradientDirectionOption.back,
+    this.direction = GradientDirectionOption.forward,
     this.stops = const [],
     this.onChanged,
     super.key,
@@ -25,10 +26,6 @@ class GradientPickerWidget extends StatefulWidget {
 }
 
 class _GradientPickerWidgetState extends State<GradientPickerWidget> {
-  final List<GradientStop> gradientStops = [];
-
-  late Alignment begin;
-  late Alignment end;
 
   late final GradientPickerController controller;
 
@@ -66,27 +63,8 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
               },
               onDragged: controller.moveStop,
             ),
-            Row(
-              children: [
-                ColorStopPreview(
-                  label: 'Cor ${controller.selectedStop.positionLabel}',
-                  color: controller.selectedStop.color,
-                ),
-                const Spacer(),
-                IconButton.filledTonal(
-                  tooltip: 'Adicionar cor',
-                  icon: const Icon(Icons.add),
-                  onPressed: controller.createStop,
-                ),
-                const SizedBox(width: 8),
-                IconButton.filledTonal(
-                  tooltip: 'Remover cor',
-                  icon: const Icon(Icons.delete_outline),
-                  onPressed: gradientStops.length > 2 ?
-                    controller.removeSelectedStop : null,
-                ),
-              ],
-            ),
+            StopPalette(stops: controller.stops),
+            GradientColorMenu(controller: controller),
             ColorPicker(
               pickerColor: controller.selectedStop.color,
               onColorChanged: controller.changeSelectedColor,
@@ -112,8 +90,8 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
       GradientPickerValue(
         colors: [for (final stop in stops) stop.color],
         stops: [for (final stop in stops) stop.position],
-        begin: begin,
-        end: end,
+        begin: controller.direction.begin,
+        end: controller.direction.end,
       ),
     );
   }

@@ -5,11 +5,13 @@ class ColorStopPreview extends StatelessWidget {
   const ColorStopPreview({
     required this.label,
     required this.color,
+    this.size = const Size(32,32),
     super.key,
   });
 
   final String label;
   final Color color;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class ColorStopPreview extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 32,
-            height: 32,
+            width: size.width,
+            height: size.height,
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(8),

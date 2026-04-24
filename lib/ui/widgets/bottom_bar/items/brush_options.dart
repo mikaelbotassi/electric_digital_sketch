@@ -11,6 +11,7 @@ class BrushOptions extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DoubleSwitch(
             label: 'Tamanho',
@@ -22,11 +23,17 @@ class BrushOptions extends StatelessWidget {
               );
             },
           ),
-          ColorPickerWidget(
-              initialColor: controller.value.brushColor,
-              onChanged: (color){
-                controller.changeBrushValues(color: color);
-              }
+          Row(
+            spacing: 16,
+            children: [
+              const Text('Cor'),
+              ColorPickerWidget(
+                initialColor: controller.value.brushColor,
+                onChanged: (color){
+                  controller.changeBrushValues(color: color);
+                }
+              ),
+            ],
           )
         ],
       ),
