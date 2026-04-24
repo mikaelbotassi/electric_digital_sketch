@@ -29,9 +29,11 @@ class PrimaryButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: colors.primaryContainer.withAlpha(enabled ? 1000 : 200),
+          border: Border.all(color: colors.primary)
         ),
         child: Row(
           spacing: 8,
+          mainAxisSize: MainAxisSize.min,
           children: [
             if(icon != null)
               Icon(

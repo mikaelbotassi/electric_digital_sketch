@@ -75,8 +75,8 @@ class TextAlignInput extends StatelessWidget {
     );
   }
 
-  List<ToogleButtonOption<TextAlignInputOption>> get options =>
-    TextAlignInputOption.values.map((o) => ToogleButtonOption(
+  List<ToggleButtonOption<TextAlignInputOption>> get options =>
+    TextAlignInputOption.values.map((o) => ToggleButtonOption(
       value: o,
       icon: o.icon,
     )).toList();

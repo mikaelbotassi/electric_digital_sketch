@@ -1,6 +1,9 @@
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/gradient_picker_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/primary_button.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/text_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class ColorPickerDialog extends StatefulWidget {
 
@@ -15,18 +18,12 @@ class ColorPickerDialog extends StatefulWidget {
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   late Color selectedColor;
-  final controller = TextEditingController();
+  bool isGradient = true;
 
   @override
   void initState() {
     selectedColor = widget.initialColor;
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -36,21 +33,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusGeometry.circular(8),
-        side: const BorderSide(
-          color: Colors.white38
+        side: BorderSide(
+          color: colors.inverseSurface.withAlpha(100),
+          width: 2
         )
       ),
       title: Text(
         'Escolha uma cor',
-        style: textTheme.titleLarge
+        style: textTheme.titleLarge?.apply(color: colors.onSurface.withAlpha(200))
       ),
       content: SingleChildScrollView(
-        child: ColorPicker(
-          pickerColor: widget.initialColor,
+        child: isGradient ? GradientPickerWidget() : ColorPicker(
+          pickerColor: selectedColor,
           onColorChanged: (color) {
             selectedColor = color;
           },
-          hexInputController: controller,
           displayThumbColor: true,
           pickerAreaHeightPercent: 0.8,
         ),
@@ -58,14 +55,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       actions: [
         TextButtonWidget(
           onPressed: () => Navigator.pop(context, widget.initialColor),
+          icon: TablerIcons.x,
           text: 'Cancelar',
         ),
-        FilledButton(
+        PrimaryButton(
           onPressed: () {
             Navigator.pop(context, selectedColor);
           },
-          child: const Text('Aplicar'),
-        ),
+          icon: TablerIcons.check,
+          text: 'Aplicar',
+        )
       ],
     );
   }

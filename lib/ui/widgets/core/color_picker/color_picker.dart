@@ -1,5 +1,6 @@
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorPickerWidget extends StatefulWidget {
   const ColorPickerWidget({
@@ -67,8 +68,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
           ),
         ),
         Text(
-          '#${selectedColor.toARGB32().toRadixString(16)
-            .padLeft(8, '0').toUpperCase()}',
+          hexadecimalColor,
           style: textTheme.bodyMedium?.apply(
             color: colors.onSurface.withAlpha(100)
           ),
@@ -76,4 +76,12 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       ],
     );
   }
+
+  String get hexadecimalColor{
+    if(selectedColor.a == 0){
+      return 'Transparent';
+    }
+    return selectedColor.toHexString().replaceRange(0, 2, '#');
+  }
+
 }

@@ -30,6 +30,7 @@ class TextButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           spacing: 8,
+          mainAxisSize: MainAxisSize.min,
           children: [
             if(icon != null) Icon(icon, color: validatedColor, size: iconSize),
             if(text != null) Text(
