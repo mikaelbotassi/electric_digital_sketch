@@ -1,5 +1,5 @@
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/direction_option.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/gradient_stop.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
 import 'package:flutter/material.dart';
 
 final defaultStops = [

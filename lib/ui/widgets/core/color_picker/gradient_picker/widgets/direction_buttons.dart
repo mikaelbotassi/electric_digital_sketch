@@ -1,4 +1,4 @@
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/models/direction_option.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/toggle_button/toggle_button_group.dart';
 import 'package:flutter/material.dart';
 

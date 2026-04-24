@@ -1,4 +1,8 @@
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/gradient_picker_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/color_picker_dialog_header.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/solid_color_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/primary_button.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/text_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +21,12 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
-  late Color selectedColor;
-  bool isGradient = true;
+  late ColorPickerValue<dynamic> selectedColor;
+  ColorPickerType type = ColorPickerType.solid;
 
   @override
   void initState() {
-    selectedColor = widget.initialColor;
+    selectedColor = SolidColorValue(widget.initialColor);
     super.initState();
   }
 
@@ -38,21 +42,25 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           width: 2
         )
       ),
-      title: Text(
-        'Escolha uma cor',
-        style: textTheme.titleLarge?.apply(color: colors.onSurface.withAlpha(200))
+      title: ColorPickerDialogHeader(
+        onChanged: (newType){
+          setState(() {
+            type = newType;
+          });
+        },
+        type: type,
       ),
       content: SizedBox(
         width: 360,
         child: SingleChildScrollView(
-          child: !isGradient ? GradientPickerWidget() : ColorPicker(
-            pickerColor: selectedColor,
+          child: type == ColorPickerType.solid ? ColorPicker(
+            pickerColor: selectedColor.toSolidColor(),
             onColorChanged: (color) {
-              selectedColor = color;
+              selectedColor = SolidColorValue(color);
             },
             displayThumbColor: true,
             pickerAreaHeightPercent: 0.8,
-          ),
+          ) : const GradientPickerWidget(),
         ),
       ),
       actions: [

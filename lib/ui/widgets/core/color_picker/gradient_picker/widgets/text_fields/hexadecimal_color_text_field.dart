@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class HexadecimalColorTextField extends StatefulWidget {
   const HexadecimalColorTextField({

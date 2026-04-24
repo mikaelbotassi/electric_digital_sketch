@@ -1,12 +1,13 @@
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:flutter/material.dart';
 
-class GradientPickerValue {
-  const GradientPickerValue({
+class GradientValue extends ColorPickerValue<Gradient> {
+  GradientValue({
     required this.colors,
     required this.stops,
     required this.begin,
     required this.end,
-  });
+  }) : super();
 
   final List<Color> colors;
   final List<double> stops;
@@ -25,4 +26,8 @@ class GradientPickerValue {
       end: end,
     );
   }
+
+  @override
+  Gradient get value => gradient;
+
 }
