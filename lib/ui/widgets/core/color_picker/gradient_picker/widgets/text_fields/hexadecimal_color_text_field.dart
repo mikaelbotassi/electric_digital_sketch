@@ -5,11 +5,13 @@ class HexadecimalColorTextField extends StatefulWidget {
   const HexadecimalColorTextField({
     required this.textStyle,
     required this.hexadecimalController,
+    this.enabled = true,
     this.onHexadecimalSubmitted,
     super.key,
   });
 
   final TextEditingController hexadecimalController;
+  final bool enabled;
   final ValueChanged<String>? onHexadecimalSubmitted;
   final TextStyle? textStyle;
 
@@ -22,13 +24,16 @@ class _HexadecimalColorTextFieldState extends State<HexadecimalColorTextField> {
   @override
   void initState() {
     super.initState();
-    _normalizeValue();
+    if (widget.enabled) {
+      _normalizeValue();
+    }
   }
 
   @override
   void didUpdateWidget(covariant HexadecimalColorTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.hexadecimalController != widget.hexadecimalController) {
+    if (widget.enabled &&
+        oldWidget.hexadecimalController != widget.hexadecimalController) {
       _normalizeValue();
     }
   }
@@ -38,11 +43,13 @@ class _HexadecimalColorTextFieldState extends State<HexadecimalColorTextField> {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
     return SizedBox(
-      width: 72,
+      width: widget.enabled ? 72 : 92,
       child: TextFormField(
+        enabled: widget.enabled,
         style: widget.textStyle,
         controller: widget.hexadecimalController,
-        maxLength: 6,
+        maxLength: widget.enabled ? 6 : null,
+        readOnly: !widget.enabled,
         textInputAction: TextInputAction.done,
         textAlignVertical: TextAlignVertical.center,
         onFieldSubmitted: widget.onHexadecimalSubmitted,
@@ -51,16 +58,16 @@ class _HexadecimalColorTextFieldState extends State<HexadecimalColorTextField> {
           counterText: '',
           border: InputBorder.none,
           contentPadding: EdgeInsets.zero,
-          prefixText: '# ',
+          prefixText: widget.enabled ? '# ' : null,
           prefixStyle: widget.textStyle?.
-            apply(color: colors.onSurface.withAlpha(100))
+            apply(color: colors.onSurface.withAlpha(100)),
         ),
-        inputFormatters: [
+        inputFormatters: widget.enabled ? [
           FilteringTextInputFormatter.allow(
             RegExp('[0-9a-fA-F]'),
           ),
           UpperCaseTextFormatter(),
-        ],
+        ] : const [],
       ),
     );
   }

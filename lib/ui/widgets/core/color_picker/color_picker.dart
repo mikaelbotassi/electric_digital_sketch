@@ -1,21 +1,23 @@
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/color_picker_dialog.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/text_fields/color_opacity_text_field.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/text_fields/hexadecimal_color_text_field.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorPickerWidget extends StatefulWidget {
   const ColorPickerWidget({
     required this.onChanged,
-    this.initialColor = Colors.blue,
-    this.label = 'Cor',
+    this.initialValue,
+    this.allowedTypes = const {ColorPickerType.solid, ColorPickerType.gradient},
     this.textStyle,
-    super.key
+    super.key,
   });
 
-  final String label;
-  final Color initialColor;
-  final ValueChanged<Color> onChanged;
+  final ColorPickerValue? initialValue;
+  final ValueChanged<ColorPickerValue> onChanged;
+  final Set<ColorPickerType> allowedTypes;
   final TextStyle? textStyle;
 
   @override
@@ -23,16 +25,16 @@ class ColorPickerWidget extends StatefulWidget {
 }
 
 class _ColorPickerWidgetState extends State<ColorPickerWidget> {
-  late Color selectedColor;
+  late ColorPickerValue selectedValue;
 
   late final TextEditingController hexadecimalController;
   late final TextEditingController opacityController;
 
   @override
   void initState() {
-    selectedColor = widget.initialColor;
+    selectedValue = widget.initialValue ?? const SolidColorValue(Colors.white);
     hexadecimalController = TextEditingController(
-      text: hexadecimalColor.replaceFirst('#', ''),
+      text: hexadecimalLabel,
     );
     opacityController = TextEditingController(
       text: opacityPercentage.toString(),
@@ -48,20 +50,18 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   }
 
   Future<void> openColorPicker() async {
-    final newColor = await showDialog<Color>(
+    final newValue = await showDialog<ColorPickerValue>(
       context: context,
       builder: (context) {
-        return ColorPickerDialog(
-          initialColor: selectedColor
-        );
+        return ColorPickerDialog(initialValue: selectedValue);
       },
     );
-    if (newColor != null) {
+    if (newValue != null) {
       setState(() {
-        selectedColor = newColor;
+        selectedValue = newValue;
         _syncControllers();
       });
-      widget.onChanged(newColor);
+      widget.onChanged(newValue);
     }
   }
 
@@ -92,7 +92,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                       width: colorPickerHeight,
                       height: colorPickerHeight,
                       decoration: BoxDecoration(
-                        color: selectedColor,
+                        color: isGradient ? null : selectedValue.toSolidColor(),
+                        gradient: selectedValue.toGradient(),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: colors.onSurface
                           .withAlpha(100))
@@ -102,7 +103,9 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                   HexadecimalColorTextField(
                     hexadecimalController: hexadecimalController,
                     textStyle: textStyle,
-                    onHexadecimalSubmitted: _handleHexadecimalSubmitted,
+                    enabled: !isGradient,
+                    onHexadecimalSubmitted: isGradient ? null :
+                      _handleHexadecimalSubmitted,
                   )
                 ],
               ),
@@ -126,61 +129,83 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   }
 
   void _handleHexadecimalSubmitted(String value) {
-    final normalizedValue = value.trim().replaceAll('#', '');
+    try{
+      if (isGradient) {
+        _syncControllers();
+        return;
+      }
 
-    if (normalizedValue.isEmpty) {
+      final normalizedValue = value.trim().replaceAll('#', '');
+
+      if (normalizedValue.isEmpty) {
+        _syncControllers();
+        return;
+      }
+
+      if(normalizedValue.toLowerCase().contains('trans')){
+        setState(() {
+          selectedValue = const SolidColorValue(Colors.transparent);
+          _syncControllers();
+        });
+        return;
+      }
+
+      final hexValue = normalizedValue.length >= 6
+          ? normalizedValue.substring(0, 6)
+          : normalizedValue.padRight(6,
+          normalizedValue[normalizedValue.length - 1]);
+
+      final parsedColor = Color(
+        int.parse(
+          '${alphaChannel.toRadixString(16).padLeft(2, '0')}$hexValue',
+          radix: 16,
+        ),
+      );
+
+      setState(() {
+        selectedValue = SolidColorValue(parsedColor);
+        _syncControllers();
+      });
+
+      widget.onChanged(selectedValue);
+    } on Exception catch(_){
       _syncControllers();
       return;
     }
-
-    final hexValue = normalizedValue.length >= 6
-        ? normalizedValue.substring(0, 6)
-        : normalizedValue.padRight(6,
-          normalizedValue[normalizedValue.length - 1]);
-
-    final parsedColor = Color(
-      int.parse(
-        '${alphaChannel.toRadixString(16).padLeft(2, '0')}$hexValue',
-        radix: 16,
-      ),
-    );
-
-    setState(() {
-      selectedColor = parsedColor;
-      _syncControllers();
-    });
-
-    widget.onChanged(parsedColor);
   }
 
   void _handleOpacitySubmitted(int value) {
-
     final clampedValue = value.clamp(0, 100);
-    final alpha = (clampedValue * 255 / 100).round();
-    final updatedColor = selectedColor.withAlpha(alpha);
+    final opacity = clampedValue / 100;
 
     setState(() {
-      selectedColor = updatedColor;
+      selectedValue = selectedValue.copyWithOpacity(opacity);
       _syncControllers();
     });
 
-    widget.onChanged(updatedColor);
+    widget.onChanged(selectedValue);
   }
 
   void _syncControllers() {
-    hexadecimalController.text = hexadecimalColor.replaceFirst('#', '');
+    hexadecimalController.text = hexadecimalLabel;
     opacityController.text = opacityPercentage.toString();
   }
 
-  int get alphaChannel => (selectedColor.a * 255).round().clamp(0, 255);
+  bool get isGradient => selectedValue is GradientValue;
+
+  int get alphaChannel => (selectedValue.opacity * 255).round().clamp(0, 255);
 
   int get opacityPercentage => (alphaChannel / 255 * 100).round();
 
-  String get hexadecimalColor{
+  String get hexadecimalLabel {
+    if (isGradient) {
+      return 'Gradient';
+    }
+
     if (alphaChannel == 0) {
       return 'Transparent';
     }
-    return selectedColor.toHexString().replaceRange(0, 2, '#');
+    return selectedValue.toSolidColor().toHexString().replaceRange(0, 2, '');
   }
 
 }

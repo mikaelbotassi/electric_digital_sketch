@@ -2,7 +2,6 @@ import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_pi
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/color_picker_dialog_header.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/solid_color_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/primary_button.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/text_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,9 @@ import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class ColorPickerDialog extends StatefulWidget {
 
-  const ColorPickerDialog({required this.initialColor, super.key});
+  const ColorPickerDialog({required this.initialValue, super.key});
 
-  final Color initialColor;
+  final ColorPickerValue initialValue;
 
   @override
   State<ColorPickerDialog> createState() => _ColorPickerDialogState();
@@ -21,12 +20,12 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
-  late ColorPickerValue<dynamic> selectedColor;
+  late ColorPickerValue<dynamic> selectedValue;
   ColorPickerType type = ColorPickerType.solid;
 
   @override
   void initState() {
-    selectedColor = SolidColorValue(widget.initialColor);
+    selectedValue = widget.initialValue;
     super.initState();
   }
 
@@ -54,24 +53,26 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         width: 360,
         child: SingleChildScrollView(
           child: type == ColorPickerType.solid ? ColorPicker(
-            pickerColor: selectedColor.toSolidColor(),
+            pickerColor: selectedValue.toSolidColor(),
             onColorChanged: (color) {
-              selectedColor = SolidColorValue(color);
+              selectedValue = SolidColorValue(color);
             },
             displayThumbColor: true,
             pickerAreaHeightPercent: 0.8,
-          ) : const GradientPickerWidget(),
+          ) : const GradientPickerWidget(
+
+          ),
         ),
       ),
       actions: [
         TextButtonWidget(
-          onPressed: () => Navigator.pop(context, widget.initialColor),
+          onPressed: () => Navigator.pop(context, widget.initialValue),
           icon: TablerIcons.x,
           text: 'Cancelar',
         ),
         PrimaryButton(
           onPressed: () {
-            Navigator.pop(context, selectedColor);
+            Navigator.pop(context, selectedValue);
           },
           icon: TablerIcons.check,
           text: 'Aplicar',

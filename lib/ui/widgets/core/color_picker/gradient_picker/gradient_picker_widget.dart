@@ -3,22 +3,17 @@ import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_pi
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_color_menu.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_stop_range.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/palette/stop_palette.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_value.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class GradientPickerWidget extends StatefulWidget {
   const GradientPickerWidget({
-    this.direction = GradientDirectionOption.forward,
-    this.stops = const [],
+    required this.initialValue,
     this.onChanged,
     super.key,
   });
 
-  final GradientDirectionOption direction;
-  final List<GradientStop> stops;
+  final GradientValue initialValue;
   final ValueChanged<GradientValue>? onChanged;
 
   @override
@@ -32,8 +27,8 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
   @override
   void initState() {
     controller = GradientPickerController(
-      direction: widget.direction,
-      initialStops: widget.stops
+      direction: widget.initialValue.direction,
+      initialStops: widget.initialValue.stops
     );
     super.initState();
   }
@@ -65,12 +60,6 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
             ),
             StopPalette(stops: controller.stops),
             GradientColorMenu(controller: controller),
-            ColorPicker(
-              pickerColor: controller.selectedStop.color,
-              onColorChanged: controller.changeSelectedColor,
-              displayThumbColor: true,
-              pickerAreaHeightPercent: 0.75,
-            ),
             DirectionButtonsWidget(
               initialValue: controller.direction,
               onChanged: (value) {

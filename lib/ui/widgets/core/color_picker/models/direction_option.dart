@@ -16,4 +16,21 @@ enum GradientDirectionOption {
   final IconData icon;
   final Alignment begin;
   final Alignment end;
+
+  static GradientDirectionOption fromBeginAndEnd(
+    Alignment begin,
+    Alignment end,
+  ) {
+    return switch ((begin, end)) {
+      (Alignment.centerRight, Alignment.centerLeft) => back,
+      (Alignment.bottomCenter, Alignment.topCenter) => upward,
+      (Alignment.topCenter, Alignment.bottomCenter) => downward,
+      (Alignment.bottomLeft, Alignment.topRight) => northEast,
+      (Alignment.bottomRight, Alignment.topLeft) => northWest,
+      (Alignment.topLeft, Alignment.bottomRight) => southEast,
+      (Alignment.topRight, Alignment.bottomLeft) => southWest,
+      _ => forward,
+    };
+  }
+
 }
