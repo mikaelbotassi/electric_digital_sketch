@@ -12,12 +12,14 @@ class ColorPickerWidget extends StatefulWidget {
     this.initialValue,
     this.allowedTypes = const {ColorPickerType.solid, ColorPickerType.gradient},
     this.textStyle,
+    this.maxStops = 8,
     super.key,
   });
 
   final ColorPickerValue? initialValue;
   final ValueChanged<ColorPickerValue> onChanged;
   final Set<ColorPickerType> allowedTypes;
+  final int maxStops;
   final TextStyle? textStyle;
 
   @override
@@ -53,7 +55,10 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
     final newValue = await showDialog<ColorPickerValue>(
       context: context,
       builder: (context) {
-        return ColorPickerDialog(initialValue: selectedValue);
+        return ColorPickerDialog(
+          allowedTypes: widget.allowedTypes,
+          initialValue: selectedValue
+        );
       },
     );
     if (newValue != null) {
@@ -93,7 +98,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                       height: colorPickerHeight,
                       decoration: BoxDecoration(
                         color: isGradient ? null : selectedValue.toSolidColor(),
-                        gradient: selectedValue.toGradient(),
+                        gradient: isGradient ? selectedValue.toGradient():null,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: colors.onSurface
                           .withAlpha(100))

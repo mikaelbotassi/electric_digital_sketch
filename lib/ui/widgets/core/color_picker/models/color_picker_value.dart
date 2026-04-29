@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ sealed class ColorPickerValue<T extends Object> {
       SolidColorValue(:final value) => LinearGradient(
         colors: [
           value,
-          value,
+          Colors.white,
         ],
       ),
     };
@@ -33,21 +34,28 @@ sealed class ColorPickerValue<T extends Object> {
 
 class GradientValue extends ColorPickerValue<Gradient> {
   const GradientValue({
-    required this.colors,
     required this.stops,
     required this.begin,
     required this.end,
     this.alpha = 1,
-  }) : assert(colors.length == stops.length, 'The number of colors should '
-    'correspond to the number of stops.');
+  });
 
-  final List<Color> colors;
-  final List<double> stops;
-  final Alignment begin;
-  final Alignment end;
+  final List<GradientStop> stops;
+  final AlignmentGeometry begin;
+  final AlignmentGeometry end;
   final double alpha;
 
   Color get startColor => colors.first;
+
+  List<Color> get colors => sortedStops.map((stop) => stop.color)
+    .toList(growable: false);
+
+  List<double> get positions => sortedStops.map((stop) => stop.position)
+    .toList(growable:false);
+
+  List<GradientStop> get sortedStops => stops.sorted((a,b){
+    return a.position.compareTo(b.position);
+  });
 
   Color get endColor => colors.last;
 
@@ -57,7 +65,7 @@ class GradientValue extends ColorPickerValue<Gradient> {
         for (final color in colors)
           color.withValues(alpha: color.a * alpha),
       ],
-      stops: stops,
+      stops: positions,
       begin: begin,
       end: end,
     );
@@ -69,20 +77,16 @@ class GradientValue extends ColorPickerValue<Gradient> {
   GradientDirectionOption get direction => GradientDirectionOption
     .fromBeginAndEnd(begin, end);
 
-  GradientStop get gradientStops =>
-
   @override
   double get opacity => alpha;
 
   GradientValue copyWith({
-    List<Color>? colors,
-    List<double>? stops,
+    List<GradientStop>? stops,
     Alignment? begin,
     Alignment? end,
     double? alpha,
   }) {
     return GradientValue(
-      colors: colors ?? this.colors,
       stops: stops ?? this.stops,
       begin: begin ?? this.begin,
       end: end ?? this.end,

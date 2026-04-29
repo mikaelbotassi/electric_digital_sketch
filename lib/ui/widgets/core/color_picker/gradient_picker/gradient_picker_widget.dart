@@ -1,20 +1,22 @@
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/viewmodels/gradient_picker_controller.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/direction_buttons.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_color_menu.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/gradient_stop_range.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/palette/stop_palette.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
+import 'package:electric_digital_sketch/utils/extensions/gradient_extension.dart';
 import 'package:flutter/material.dart';
 
 class GradientPickerWidget extends StatefulWidget {
   const GradientPickerWidget({
     required this.initialValue,
     this.onChanged,
+    this.maxStops = 8,
     super.key,
   });
 
-  final GradientValue initialValue;
+  final Gradient initialValue;
   final ValueChanged<GradientValue>? onChanged;
+  final int maxStops;
 
   @override
   State<GradientPickerWidget> createState() => _GradientPickerWidgetState();
@@ -26,10 +28,8 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
 
   @override
   void initState() {
-    controller = GradientPickerController(
-      direction: widget.initialValue.direction,
-      initialStops: widget.initialValue.stops
-    );
+    controller = GradientPickerController(widget.initialValue
+      .gradientPickerValue, widget.maxStops);
     super.initState();
   }
 
@@ -58,8 +58,7 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
               },
               onDragged: controller.moveStop,
             ),
-            StopPalette(stops: controller.stops),
-            GradientColorMenu(controller: controller),
+            StopPalette(controller: controller),
             DirectionButtonsWidget(
               initialValue: controller.direction,
               onChanged: (value) {
@@ -77,8 +76,7 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
 
     widget.onChanged?.call(
       GradientValue(
-        colors: [for (final stop in stops) stop.color],
-        stops: [for (final stop in stops) stop.position],
+        stops: stops,
         begin: controller.direction.begin,
         end: controller.direction.end,
       ),

@@ -10,9 +10,16 @@ import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class ColorPickerDialog extends StatefulWidget {
 
-  const ColorPickerDialog({required this.initialValue, super.key});
+  const ColorPickerDialog({
+    required this.allowedTypes,
+    required this.initialValue,
+    this.maxStops = 8,
+    super.key
+  });
 
   final ColorPickerValue initialValue;
+  final Set<ColorPickerType> allowedTypes;
+  final int maxStops;
 
   @override
   State<ColorPickerDialog> createState() => _ColorPickerDialogState();
@@ -42,6 +49,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         )
       ),
       title: ColorPickerDialogHeader(
+        allowedTypes: widget.allowedTypes,
         onChanged: (newType){
           setState(() {
             type = newType;
@@ -59,8 +67,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             },
             displayThumbColor: true,
             pickerAreaHeightPercent: 0.8,
-          ) : const GradientPickerWidget(
-
+          ) : GradientPickerWidget(
+            onChanged: (newValue){
+              selectedValue = newValue;
+            },
+            initialValue: selectedValue.toGradient(),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/viewmodels/gradient_picker_controller.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/gradient_picker/widgets/color_stop_preview.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 class GradientColorMenu extends StatelessWidget {
   const GradientColorMenu({required this.controller, super.key});
@@ -12,25 +13,13 @@ class GradientColorMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: ColorStopPreview(
-            label: 'Cor ${controller.selectedStop.positionLabel}',
-            color: controller.selectedStop.color,
-          ),
-        ),
+        const Expanded(child: Text('Interrupções')),
         Row(
           spacing: 8,
           children: [
-            IconButton.filledTonal(
-              tooltip: 'Adicionar cor',
-              icon: const Icon(Icons.add),
+            IconButtonWidget(
+              icon: TablerIcons.plus,
               onPressed: controller.createStop,
-            ),
-            IconButton.filledTonal(
-              tooltip: 'Remover cor',
-              icon: const Icon(Icons.delete_outline),
-              onPressed: controller.stops.length > 2 ?
-              controller.removeSelectedStop : null,
             ),
           ],
         )

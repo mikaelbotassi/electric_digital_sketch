@@ -24,7 +24,6 @@ class TextOptions extends StatelessWidget {
           FontSizeRange(controller: controller, item: item),
           TextAlignInput(controller: controller, item: item),
           ColorPickerWidget(
-            allowedTypes: const {ColorPickerType.solid},
             initialValue: SolidColorValue(item.textStyle.color ?? Colors.white),
             onChanged: (value) {
               controller.changeTextValues(

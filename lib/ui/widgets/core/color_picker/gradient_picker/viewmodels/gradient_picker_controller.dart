@@ -1,3 +1,4 @@
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,13 @@ final defaultStops = [
 
 class GradientPickerController extends ChangeNotifier{
 
-  GradientPickerController({
-    required GradientDirectionOption direction,
-    List<GradientStop> initialStops = const [],
-  }) : _direction = direction{
-    initStops(initialStops);
+  GradientPickerController(GradientValue initialValue, [this.maxStops = 8]) :
+    _direction = initialValue.direction{
+    initStops(initialValue.stops);
   }
 
   late final List<GradientStop> _stops;
+  final int maxStops;
 
   List<GradientStop> get stops => _stops;
   List<GradientStop> get sortedStops {
@@ -46,13 +46,14 @@ class GradientPickerController extends ChangeNotifier{
   void initStops(List<GradientStop> initialStops) {
     assert(initialStops.isEmpty || initialStops.length > 1,
     'The number of initial stop-loss orders must be 0 or greater than 1.');
-    _stops = initialStops.isNotEmpty ? initialStops : defaultStops;
+    final sourceStops = initialStops.isNotEmpty ? initialStops : defaultStops;
+    _stops = sourceStops.map((stop) => stop.copyWith()).toList();
     _selectedStop = _stops.first;
   }
 
-  void removeSelectedStop() {
-    _stops.remove(selectedStop);
-    _selectedStop = _stops.first;
+  void removeStop(GradientStop stop) {
+    if(_stops.length <= 2) return;
+    _stops.remove(stop);
     notifyListeners();
   }
 
@@ -79,6 +80,7 @@ class GradientPickerController extends ChangeNotifier{
   }
 
   void createStop() {
+    if(this.stops.length >= maxStops) return;
     final stops = sortedStops;
     final selectedIndex = stops.indexOf(_selectedStop);
     final nextStop = selectedIndex < stops.length - 1

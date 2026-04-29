@@ -6,14 +6,19 @@ class ColorPickerDialogHeader extends StatelessWidget {
   const ColorPickerDialogHeader({
     required this.type,
     required this.onChanged,
+    required this.allowedTypes,
     super.key
   });
 
   final ValueChanged<ColorPickerType> onChanged;
   final ColorPickerType type;
+  final Set<ColorPickerType> allowedTypes;
 
   @override
   Widget build(BuildContext context) {
+    if(allowedTypes.length <= 1){
+      return Container();
+    }
     return Row(
       children: [
         IntrinsicWidth(
@@ -28,7 +33,7 @@ class ColorPickerDialogHeader extends StatelessWidget {
   }
 
   List<ToggleButtonOption<ColorPickerType>> get options =>
-    ColorPickerType.values.map(
+      allowedTypes.map(
     (type) => ToggleButtonOption(value: type, icon: type.icon)
     ).toList(growable: false);
 
