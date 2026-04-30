@@ -4,6 +4,7 @@ import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/colo
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/primary_button.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/text_button_widget.dart';
+import 'package:electric_digital_sketch/utils/extensions/gradient_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
@@ -27,12 +28,18 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
-  late ColorPickerValue<dynamic> selectedValue;
-  ColorPickerType type = ColorPickerType.solid;
+  late ColorPickerType type;
+  late SolidColorValue solidValue;
+  late GradientValue gradientValue;
 
   @override
   void initState() {
-    selectedValue = widget.initialValue;
+    final initialValue = widget.initialValue;
+    solidValue = SolidColorValue(initialValue.toSolidColor());
+    gradientValue = initialValue.toGradient().gradientPickerValue;
+    type = initialValue is GradientValue
+        ? ColorPickerType.gradient
+        : ColorPickerType.solid;
     super.initState();
   }
 
@@ -61,17 +68,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         width: 360,
         child: SingleChildScrollView(
           child: type == ColorPickerType.solid ? ColorPicker(
-            pickerColor: selectedValue.toSolidColor(),
+            pickerColor: solidValue.value,
             onColorChanged: (color) {
-              selectedValue = SolidColorValue(color);
+              solidValue = SolidColorValue(color);
             },
             displayThumbColor: true,
             pickerAreaHeightPercent: 0.8,
           ) : GradientPickerWidget(
             onChanged: (newValue){
-              selectedValue = newValue;
+              gradientValue = newValue;
             },
-            initialValue: selectedValue.toGradient(),
+            initialValue: gradientValue.toGradient(),
+            maxStops: widget.maxStops,
           ),
         ),
       ),
@@ -83,7 +91,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         PrimaryButton(
           onPressed: () {
-            Navigator.pop(context, selectedValue);
+            Navigator.pop(
+              context,
+              type == ColorPickerType.gradient ? gradientValue : solidValue,
+            );
           },
           icon: TablerIcons.check,
           text: 'Aplicar',

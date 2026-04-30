@@ -36,8 +36,8 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
 
   @override
   void dispose() {
-    controller.removeListener(notifyChanged);
-    controller.dispose();
+    controller..removeListener(notifyChanged)
+    ..dispose();
     super.dispose();
   }
 

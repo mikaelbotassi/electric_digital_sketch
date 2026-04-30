@@ -49,8 +49,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   @override
   void didUpdateWidget(covariant ColorPickerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.initialValue != oldWidget.initialValue &&
-        widget.initialValue != null) {
+    final initialValue = widget.initialValue;
+    if (initialValue != null && !_isSameValue(selectedValue, initialValue)) {
       selectedValue = widget.initialValue!;
       _syncControllers();
     }
@@ -69,7 +69,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       builder: (context) {
         return ColorPickerDialog(
           allowedTypes: widget.allowedTypes,
-          initialValue: selectedValue
+          initialValue: selectedValue,
+          maxStops: widget.maxStops,
         );
       },
     );
@@ -224,6 +225,37 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       return 'Transparent';
     }
     return selectedValue.toSolidColor().toHexString().replaceRange(0, 2, '');
+  }
+
+  bool _isSameValue(ColorPickerValue a, ColorPickerValue b) {
+    if (a.runtimeType != b.runtimeType) return false;
+    if (a is SolidColorValue && b is SolidColorValue) {
+      return a.value == b.value;
+    }
+    if (a is GradientValue && b is GradientValue) {
+      return _isSameGradientValue(a, b);
+    }
+    return false;
+  }
+
+  bool _isSameGradientValue(GradientValue a, GradientValue b) {
+    if (a.begin != b.begin || a.end != b.end || a.alpha != b.alpha) {
+      return false;
+    }
+
+    if (a.stops.length != b.stops.length) {
+      return false;
+    }
+
+    for (var index = 0; index < a.stops.length; index++) {
+      final stopA = a.stops[index];
+      final stopB = b.stops[index];
+      if (stopA.color != stopB.color || stopA.position != stopB.position) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
 }

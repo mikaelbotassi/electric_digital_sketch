@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:electric_digital_sketch/domain/exceptions/electric_digital_sketch_exception.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/direction_option.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';

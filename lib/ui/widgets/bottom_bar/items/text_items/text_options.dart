@@ -3,9 +3,8 @@ import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/text_items/t
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/color_picker.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
 import 'package:flutter/material.dart';
-import 'package:electric_digital_sketch/widgets/options/options.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:simple_painter/simple_painter.dart';
 
 class TextOptions extends StatelessWidget {
@@ -24,10 +23,31 @@ class TextOptions extends StatelessWidget {
           FontSizeRange(controller: controller, item: item),
           TextAlignInput(controller: controller, item: item),
           ColorPickerWidget(
-            initialValue: SolidColorValue(item.textStyle.color ?? Colors.white),
+            maxStops: 2,
+            initialValue: item.enableGradientColor ?
+            GradientValue(
+              stops: [
+                GradientStop(color: item.gradientStartColor, position: 0),
+                GradientStop(color: item.gradientEndColor, position: 1),
+              ],
+              begin: item.gradientBegin,
+              end: item.gradientEnd
+            ) : SolidColorValue(item.textStyle.color ?? Colors.white),
             onChanged: (value) {
+              if(value is GradientValue){
+                controller.changeTextValues(
+                  item,
+                  enableGradientColor: true,
+                  gradientBegin: value.begin,
+                  gradientEnd: value.end,
+                  gradientStartColor: value.startColor,
+                  gradientEndColor: value.endColor
+                );
+                return;
+              }
               controller.changeTextValues(
                 item,
+                enableGradientColor: false,
                 textStyle: item.textStyle.copyWith(
                   color: value.toSolidColor(),
                 ),

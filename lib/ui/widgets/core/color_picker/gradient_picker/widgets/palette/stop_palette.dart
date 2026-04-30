@@ -32,8 +32,7 @@ class StopPalette extends StatelessWidget {
       onRemove: () => controller.removeStop(stop),
       onChanged: (value){
         if(value is SolidColorValue){
-          controller.selectedStop = stop;
-          controller.changeSelectedColor(value.value);
+          controller.changeStopColor(stop, value.value);
         }
       })).toList(growable: false);
 
