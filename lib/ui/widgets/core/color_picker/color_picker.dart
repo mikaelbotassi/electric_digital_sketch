@@ -9,6 +9,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 class ColorPickerWidget extends StatefulWidget {
   const ColorPickerWidget({
     required this.onChanged,
+    this.decoration,
     this.initialValue,
     this.allowedTypes = const {ColorPickerType.solid, ColorPickerType.gradient},
     this.textStyle,
@@ -21,6 +22,7 @@ class ColorPickerWidget extends StatefulWidget {
   final Set<ColorPickerType> allowedTypes;
   final int maxStops;
   final TextStyle? textStyle;
+  final BoxDecoration? decoration;
 
   @override
   State<ColorPickerWidget> createState() => _ColorPickerWidgetState();
@@ -42,6 +44,16 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       text: opacityPercentage.toString(),
     );
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ColorPickerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue &&
+        widget.initialValue != null) {
+      selectedValue = widget.initialValue!;
+      _syncControllers();
+    }
   }
 
   @override
@@ -77,7 +89,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       theme.colorScheme);
     final colorPickerHeight = (textStyle?.fontSize ?? 24) * 2;
     return Container(
-      decoration: BoxDecoration(
+      decoration: widget.decoration ?? BoxDecoration(
+        color: colors.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(4),
         border: Border.all(color: colors.onSurface.withAlpha(100))
       ),

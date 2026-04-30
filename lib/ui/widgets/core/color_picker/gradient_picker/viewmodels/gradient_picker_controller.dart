@@ -24,6 +24,7 @@ class GradientPickerController extends ChangeNotifier{
   }
   void addStop(GradientStop stop){
     _stops.add(stop);
+    _selectedStop = stop;
     notifyListeners();
   }
 
@@ -64,6 +65,12 @@ class GradientPickerController extends ChangeNotifier{
   }
 
   void changeSelectedColor(Color color) {
+    _selectedStop.color = color;
+    notifyListeners();
+  }
+
+  void changeStopColor(GradientStop stop, Color color) {
+    _selectedStop = stop;
     _selectedStop.color = color;
     notifyListeners();
   }

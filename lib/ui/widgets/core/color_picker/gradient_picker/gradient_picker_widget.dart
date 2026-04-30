@@ -30,11 +30,13 @@ class _GradientPickerWidgetState extends State<GradientPickerWidget> {
   void initState() {
     controller = GradientPickerController(widget.initialValue
       .gradientPickerValue, widget.maxStops);
+    controller.addListener(notifyChanged);
     super.initState();
   }
 
   @override
   void dispose() {
+    controller.removeListener(notifyChanged);
     controller.dispose();
     super.dispose();
   }

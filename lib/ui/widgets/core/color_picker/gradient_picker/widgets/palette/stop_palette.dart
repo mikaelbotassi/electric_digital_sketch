@@ -25,12 +25,15 @@ class StopPalette extends StatelessWidget {
 
   List<Widget> get stopWidgets => controller.sortedStops
     .map((stop) => StopPaletteItem(
+      key: ObjectKey(stop),
+      active: controller.selectedStop == stop,
       color: stop.color,
       position: stop.position,
       onRemove: () => controller.removeStop(stop),
       onChanged: (value){
         if(value is SolidColorValue){
-          stop.color = value.value;
+          controller.selectedStop = stop;
+          controller.changeSelectedColor(value.value);
         }
       })).toList(growable: false);
 

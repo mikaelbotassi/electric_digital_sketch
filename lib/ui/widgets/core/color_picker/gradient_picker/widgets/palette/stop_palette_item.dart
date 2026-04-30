@@ -11,18 +11,28 @@ class StopPaletteItem extends StatelessWidget {
     required this.position,
     required this.onChanged,
     required this.onRemove,
-    super.key
+    this.active = false,
+    super.key,
   });
 
   final Color color;
   final double position;
   final ValueChanged<ColorPickerValue> onChanged;
   final VoidCallback onRemove;
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: active ? colors.inverseSurface.withAlpha(50) :
+          Colors.transparent,
+        borderRadius: BorderRadius.circular(4)
+      ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ColorPickerWidget(
             allowedTypes: const {ColorPickerType.solid},
