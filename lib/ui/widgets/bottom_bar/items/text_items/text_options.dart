@@ -1,10 +1,7 @@
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/text_items/font_size_range.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/text_items/text_align_input.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/color_picker.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/gradient_stop.dart';
 import 'package:flutter/material.dart';
+import 'package:mb_color_picker/mb_color_picker.dart';
 import 'package:simple_painter/simple_painter.dart';
 
 class TextOptions extends StatelessWidget {
@@ -22,7 +19,7 @@ class TextOptions extends StatelessWidget {
         children: [
           FontSizeRange(controller: controller, item: item),
           TextAlignInput(controller: controller, item: item),
-          ColorPickerWidget(
+          MbColorPickerWidget(
             maxStops: 2,
             initialValue: item.enableGradientColor ?
             GradientValue(
@@ -54,7 +51,7 @@ class TextOptions extends StatelessWidget {
               );
             },
           ),
-          ColorPickerWidget(
+          MbColorPickerWidget(
             allowedTypes: const {ColorPickerType.solid},
             initialValue: SolidColorValue(
               item.textStyle.backgroundColor ?? Colors.transparent,

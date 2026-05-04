@@ -1,8 +1,6 @@
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/color_picker.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_type.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/color_picker/models/color_picker_value.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/double_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:mb_color_picker/mb_color_picker.dart';
 import 'package:simple_painter/simple_painter.dart';
 
 class BrushOptions extends StatelessWidget {
@@ -29,7 +27,7 @@ class BrushOptions extends StatelessWidget {
             spacing: 16,
             children: [
               const Text('Cor'),
-              ColorPickerWidget(
+              MbColorPickerWidget(
                 allowedTypes: const {ColorPickerType.solid},
                 initialValue: SolidColorValue(controller.value.brushColor),
                 onChanged: (color){
