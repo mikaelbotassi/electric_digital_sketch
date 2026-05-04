@@ -16,7 +16,7 @@ abstract class ToolbarItemWidget extends StatelessWidget {
   PainterController get painterController => controller.painterController;
   final ElectricSketchController controller;
 
-  bool get isActive;
+  bool get isActive => mode == controller.mode;
   FutureOr<void> onPressed(BuildContext context);
 
   @override

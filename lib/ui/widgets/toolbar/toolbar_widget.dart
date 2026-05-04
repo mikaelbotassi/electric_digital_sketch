@@ -2,6 +2,7 @@ import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/brush_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/changes_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/erase_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/layer_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/select_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/text_toolbar_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,8 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
                   BrushToolbarItemWidget(controller: widget.controller),
                   EraseToolbarItemWidget(controller: widget.controller),
                   ChangesToolbarItemWidget(controller: widget.controller),
-                  TextToolbarItemWidget(controller: widget.controller)
+                  TextToolbarItemWidget(controller: widget.controller),
+                  LayerToolbarItemWidget(controller: widget.controller)
                 ],
               ),
             ),
