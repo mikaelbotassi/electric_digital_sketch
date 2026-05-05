@@ -19,59 +19,58 @@ class LayerOptionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final (colors, textTheme) = (theme.colorScheme, theme.textTheme);
+    final isSelected = controller.value.selectedItem == item;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: colors.primary,
+          color: isSelected ? colors.primary: colors.onSurface.withAlpha(50),
+          width: isSelected ? 2 : 1
         ),
       ),
       child: Row(
-        mainAxisAlignment: .spaceBetween,
         children: [
-          Text(
-            item.layer.title,
-            style: textTheme.bodyMedium?.apply(color: colors.primary),
+          Expanded(
+            child: Text(
+              item.layer.title,
+              style: textTheme.bodyMedium?.apply(color: colors.primary),
+            ),
           ),
-          Row(
-            children: [
-              IconButtonWidget(
-                icon: TablerIcons.trash,
-                color: colors.error,
-                onPressed: () {
-                  controller.removeItem(layerIndex: item.layer.index);
-                },
-              ),
-              IconButtonWidget(
-                icon:TablerIcons.photo,
-                color: colors.primary,
-                onPressed: () async {
-                  final image =
-                  await controller.renderItem(item, enableRotation: true);
-                  if (image != null && context.mounted) {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                        builder: (context) => ResultPage(image: image),
-                      ),
-                    );
-                  }
-                },
-              ),
-              IconButtonWidget(
-                icon: TablerIcons.arrowDown,
-                onPressed:  () {
-                  controller.updateLayerIndex(item, item.layer.index - 1);
-                },
-              ),
-              IconButtonWidget(
-                icon: TablerIcons.arrowUp,
-                onPressed: () {
-                  controller.updateLayerIndex(item, item.layer.index + 1);
-                },
-              ),
-            ],
+          IconButtonWidget(
+            icon: TablerIcons.trash,
+            color: colors.error,
+            onPressed: () {
+              controller.removeItem(layerIndex: item.layer.index);
+            },
+          ),
+          IconButtonWidget(
+            icon:TablerIcons.photo,
+            color: colors.primary,
+            onPressed: () async {
+              final image =
+              await controller.renderItem(item, enableRotation: true);
+              if (image != null && context.mounted) {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (context) => ResultPage(image: image),
+                  ),
+                );
+              }
+            },
+          ),
+          IconButtonWidget(
+            icon: TablerIcons.arrowDown,
+            onPressed:  () {
+              controller.updateLayerIndex(item, item.layer.index - 1);
+            },
+          ),
+          IconButtonWidget(
+            icon: TablerIcons.arrowUp,
+            onPressed: () {
+              controller.updateLayerIndex(item, item.layer.index + 1);
+            },
           ),
         ],
       ),

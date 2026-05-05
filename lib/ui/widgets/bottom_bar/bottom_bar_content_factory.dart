@@ -25,7 +25,7 @@ class BottomBarContentFactory {
         controller: controller.painterController,
       ),
       SketchMode.layers => LayerOptions(
-        controller: controller, closeLayers: () {  },
+        controller: controller.painterController
       ),
       _ => const SizedBox.shrink(),
     };
