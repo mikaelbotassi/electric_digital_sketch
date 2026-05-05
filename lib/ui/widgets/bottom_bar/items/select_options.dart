@@ -1,3 +1,4 @@
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/custom_shape_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/text_items/text_options.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,12 @@ class SelectOptions extends StatelessWidget {
           return ShapeOptions(
             controller: controller,
             item: value.selectedItem! as ShapeItem
+          );
+        }
+        if(value.selectedItem is CustomWidgetItem){
+          return CustomShapeOptions(
+            controller: controller,
+            item: value.selectedItem! as CustomWidgetItem,
           );
         }
         return const SizedBox.shrink();

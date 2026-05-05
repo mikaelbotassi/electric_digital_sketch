@@ -1,16 +1,13 @@
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/electric_shape.dart';
 import 'package:flutter/material.dart';
 
-class TransformadorProjetadoSymbol extends StatelessWidget {
+class TransformadorProjetadoSymbol extends ElectricShape {
   const TransformadorProjetadoSymbol({
     super.key,
-    this.size = 180,
-    this.color = const Color(0xFF2F3437),
-    this.strokeWidth,
+    super.size = 180,
+    super.color = const Color(0xFF2F3437),
+    super.strokeWidth = 1,
   });
-
-  final double size;
-  final Color color;
-  final double? strokeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +19,16 @@ class TransformadorProjetadoSymbol extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  ElectricShape copyWith({double? size, Color? color, double? strokeWidth}) {
+    return TransformadorProjetadoSymbol(
+      color: color ?? this.color,
+      strokeWidth: strokeWidth ?? this.strokeWidth,
+      size: size ?? this.size,
+    );
+  }
+
 }
 
 class _CircleTrianglePainter extends CustomPainter {

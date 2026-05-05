@@ -1,5 +1,6 @@
 import 'package:electric_digital_sketch/domain/enums/electric_shape_type.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
+import 'package:electric_digital_sketch/utils/extensions/painter_controller_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 
@@ -29,11 +30,11 @@ class ShapeSubSelect extends StatelessWidget {
                     return;
                   }
                   if(shape.customWidget != null){
-                    controller.addCustomWidget(shape.customWidget!,
-                      layerTitle: shape.desc);
+                    controller.addBorderlessCustomWidget(shape.customWidget!,
+                    shape.desc);
                     return;
                   }
-                  controller.addCustomWidget(shape.icon);
+                  controller.addBorderlessCustomWidget(shape.icon);
                 },
                 child: shape.icon
               ),
