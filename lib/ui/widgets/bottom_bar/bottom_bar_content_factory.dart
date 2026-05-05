@@ -5,6 +5,7 @@ import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/change_list/
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/erase_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/layers/layer_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/select_options.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_options.dart';
 import 'package:flutter/cupertino.dart';
 
 class BottomBarContentFactory {
@@ -26,6 +27,9 @@ class BottomBarContentFactory {
       ),
       SketchMode.layers => LayerOptions(
         controller: controller.painterController
+      ),
+      SketchMode.shapes => ShapeOptions(
+          controller: controller.painterController
       ),
       _ => const SizedBox.shrink(),
     };

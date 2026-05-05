@@ -4,6 +4,7 @@ class IconButtonWidget extends StatelessWidget {
 
   const IconButtonWidget({
     this.icon,
+    this.child,
     this.color,
     this.enabled = true,
     this.onPressed,
@@ -12,6 +13,7 @@ class IconButtonWidget extends StatelessWidget {
   });
 
   final IconData? icon;
+  final Widget? child;
   final VoidCallback? onPressed;
   final bool enabled;
   final EdgeInsetsGeometry padding;
@@ -26,16 +28,8 @@ class IconButtonWidget extends StatelessWidget {
       onTap: enabled ? onPressed : null,
       child: Padding(
         padding: padding,
-        child: Row(
-          spacing: 8,
-          children: [
-            if(icon != null)
-              Icon(
-                icon,
-                color: enabled ? color : color.withAlpha(100),
-              ),
-          ],
-        ),
+        child: child ?? (icon != null ? Icon(icon, color: enabled ? color :
+          color.withAlpha(100)) : const SizedBox()),
       ),
     );
   }

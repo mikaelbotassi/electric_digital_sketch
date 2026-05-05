@@ -4,6 +4,7 @@ import 'package:electric_digital_sketch/ui/widgets/toolbar/items/changes_toolbar
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/erase_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/layer_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/select_toolbar_item_widget.dart';
+import 'package:electric_digital_sketch/ui/widgets/toolbar/items/shapes_toolbar_item_widget.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/text_toolbar_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
@@ -91,7 +92,8 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
                   EraseToolbarItemWidget(controller: widget.controller),
                   ChangesToolbarItemWidget(controller: widget.controller),
                   TextToolbarItemWidget(controller: widget.controller),
-                  LayerToolbarItemWidget(controller: widget.controller)
+                  LayerToolbarItemWidget(controller: widget.controller),
+                  ShapesToolbarItemWidget(controller: widget.controller)
                 ],
               ),
             ),
