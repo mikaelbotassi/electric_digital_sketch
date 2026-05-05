@@ -1,3 +1,4 @@
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/text_items/text_options.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
@@ -16,6 +17,12 @@ class SelectOptions extends StatelessWidget {
           return TextOptions(
             controller: controller,
             item: value.selectedItem! as TextItem,
+          );
+        }
+        if(value.selectedItem is ShapeItem){
+          return ShapeOptions(
+            controller: controller,
+            item: value.selectedItem! as ShapeItem
           );
         }
         return const SizedBox.shrink();

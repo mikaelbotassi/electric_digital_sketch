@@ -1,78 +1,72 @@
-import 'package:electric_digital_sketch/domain/enums/electric_shape_type.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_suboptions.dart';
-import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
+import 'package:electric_digital_sketch/ui/widgets/core/double_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:mb_color_picker/mb_color_picker.dart';
 import 'package:simple_painter/simple_painter.dart';
 
-class ShapeOptions extends StatefulWidget {
-  const ShapeOptions({
-    required this.controller,
-    super.key,
-  });
+class ShapeOptions extends StatelessWidget {
+
+  const ShapeOptions({required this.controller, required this.item, super.key});
   final PainterController controller;
-
-  @override
-  State<ShapeOptions> createState() => _ShapeOptionsState();
-}
-
-class _ShapeOptionsState extends State<ShapeOptions> {
-
-  String _selectedGroup = 'Geral';
+  final ShapeItem item;
 
   @override
   Widget build(BuildContext context) {
-    final groups = ElectricShapeType.groups.entries;
-    final theme = Theme.of(context);
-    final (textTheme,colors) = (theme.textTheme, theme.colorScheme);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: ShapeSubOptions(
-            controller: widget.controller,
-            shapes: ElectricShapeType.findByGroup(_selectedGroup),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        spacing: 8,
+        children: [
+          Row(
+            spacing: 16,
+            children: [
+              const Text('Cor da linha'),
+              MbColorPickerWidget(
+                allowedTypes: const {ColorPickerType.solid},
+                onChanged: (newValue){
+                  controller.changeShapeValues(
+                    item,
+                    lineColor: newValue.toSolidColor(),
+                  );
+                },
+                initialValue: SolidColorValue(item.lineColor),
+              ),
+            ],
           ),
-        ),
-        Container(
-          width: double.infinity,
-          height: 1,
-          color: colors.onSurface.withAlpha(10),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                spacing: 8,
-                children: groups.map((e) => Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: _selectedGroup == e.key ?
-                      colors.onSurface.withAlpha(10) : null,
-                    border: Border.all(color: _selectedGroup == e.key ?
-                      colors.onSurface.withAlpha(50) : Colors.transparent),
-                    borderRadius: BorderRadius.circular(4)
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButtonWidget(
-                        onPressed: (){
-                          setState(() {
-                            _selectedGroup = e.key;
-                          });
-                        },
-                        child: e.value.first.icon
-                      ),
-                      Text(e.key, style: textTheme.labelMedium)
-                    ],
-                  ),
-                )).toList(growable: false)
+          DoubleSwitch(
+            label: 'Grossura',
+            initialValue: item.thickness,
+            onChanged: (newValue){
+              controller.changeShapeValues(
+                item,
+                thickness: newValue,
+              );
+            },
+          ),
+          if(isShapeNotLineOrArrow)
+            Row(
+              spacing: 16,
+              children: [
+                const Text('Cor do fundo'),
+                MbColorPickerWidget(
+                  allowedTypes: const {ColorPickerType.solid},
+                  onChanged: (newValue){
+                    controller.changeShapeValues(
+                      item,
+                      backgroundColor: newValue.toSolidColor(),
+                    );
+                  },
+                  initialValue: SolidColorValue(item.backgroundColor),
+                ),
+              ],
             ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
+
+  bool get isShapeNotLineOrArrow =>
+      item.shapeType != ShapeType.line &&
+          item.shapeType != ShapeType.arrow &&
+          item.shapeType != ShapeType.doubleArrow;
+
 }

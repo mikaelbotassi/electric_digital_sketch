@@ -3,8 +3,8 @@ import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 
-class ShapeSubOptions extends StatelessWidget {
-  const ShapeSubOptions({
+class ShapeSubSelect extends StatelessWidget {
+  const ShapeSubSelect({
     required this.shapes,
     required this.controller,
     super.key,
@@ -29,7 +29,8 @@ class ShapeSubOptions extends StatelessWidget {
                     return;
                   }
                   if(shape.customWidget != null){
-                    controller.addCustomWidget(shape.customWidget!);
+                    controller.addCustomWidget(shape.customWidget!,
+                      layerTitle: shape.desc);
                     return;
                   }
                   controller.addCustomWidget(shape.icon);
