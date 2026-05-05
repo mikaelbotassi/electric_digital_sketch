@@ -1,15 +1,16 @@
 import 'package:electric_digital_sketch/domain/enums/electric_shape_type.dart';
+import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
+import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_subselect.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_painter/simple_painter.dart';
 
 class ShapeSelect extends StatefulWidget {
   const ShapeSelect({
     required this.controller,
     super.key,
   });
-  final PainterController controller;
+  final ElectricSketchController controller;
 
   @override
   State<ShapeSelect> createState() => _ShapeSelectState();
@@ -30,7 +31,10 @@ class _ShapeSelectState extends State<ShapeSelect> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: ShapeSubSelect(
-            controller: widget.controller,
+            onPressed: (){
+              widget.controller.setMode(SketchMode.select);
+            },
+            controller: widget.controller.painterController,
             shapes: ElectricShapeType.findByGroup(_selectedGroup),
           ),
         ),

@@ -1,8 +1,8 @@
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/electric_shape.dart';
 import 'package:flutter/material.dart';
 
-class TransformadorProjetadoSymbol extends ElectricShape {
-  const TransformadorProjetadoSymbol({
+class PosteConcretoCircularExistenteSymbol extends ElectricShape {
+  const PosteConcretoCircularExistenteSymbol({
     super.key,
     super.size = 48,
     super.color = const Color(0xFF2F3437),
@@ -13,7 +13,7 @@ class TransformadorProjetadoSymbol extends ElectricShape {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size.square(size),
-      painter: _CircleTrianglePainter(
+      painter: _PosteConcretoCircularExistentePainter(
         color: color,
         strokeWidth: strokeWidth,
       ),
@@ -22,17 +22,16 @@ class TransformadorProjetadoSymbol extends ElectricShape {
 
   @override
   ElectricShape copyWith({double? size, Color? color, double? strokeWidth}) {
-    return TransformadorProjetadoSymbol(
+    return PosteConcretoCircularExistenteSymbol(
       color: color ?? this.color,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       size: size ?? this.size,
     );
   }
-
 }
 
-class _CircleTrianglePainter extends CustomPainter {
-  _CircleTrianglePainter({
+class _PosteConcretoCircularExistentePainter extends CustomPainter {
+  _PosteConcretoCircularExistentePainter({
     required this.color,
     this.strokeWidth,
   });
@@ -52,27 +51,19 @@ class _CircleTrianglePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
 
-    final center = Offset(size.width * 0.5, size.height * 0.52);
+    final center = Offset(size.width * 0.5, size.height * 0.5);
 
-    final radius = s * 0.42;
+    final outerRadius = s * 0.39;
+    final innerRadius = s * 0.16;
 
-    canvas.drawCircle(
-      center,
-      radius,
-      paint,
-    );
-
-    final trianglePath = Path()
-      ..moveTo(size.width * 0.52, size.height * 0.20)
-      ..lineTo(size.width * 0.27, size.height * 0.70)
-      ..lineTo(size.width * 0.76, size.height * 0.69)
-      ..close();
-
-    canvas.drawPath(trianglePath, paint);
+    canvas.drawCircle(center, outerRadius, paint);
+    canvas.drawCircle(center, innerRadius, paint);
   }
 
   @override
-  bool shouldRepaint(covariant _CircleTrianglePainter oldDelegate) {
+  bool shouldRepaint(
+      covariant _PosteConcretoCircularExistentePainter oldDelegate,
+      ) {
     return oldDelegate.color != color ||
         oldDelegate.strokeWidth != strokeWidth;
   }

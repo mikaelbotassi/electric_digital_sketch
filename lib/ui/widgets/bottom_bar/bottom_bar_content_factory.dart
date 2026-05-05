@@ -29,7 +29,7 @@ class BottomBarContentFactory {
         controller: controller.painterController
       ),
       SketchMode.shapes => ShapeSelect(
-          controller: controller.painterController
+          controller: controller
       ),
       _ => const SizedBox.shrink(),
     };

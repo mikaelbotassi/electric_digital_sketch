@@ -1,8 +1,8 @@
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/electric_shape.dart';
 import 'package:flutter/material.dart';
 
-class TransformadorProjetadoSymbol extends ElectricShape {
-  const TransformadorProjetadoSymbol({
+class PosteConcretoDtExistenteSymbol extends ElectricShape {
+  const PosteConcretoDtExistenteSymbol({
     super.key,
     super.size = 48,
     super.color = const Color(0xFF2F3437),
@@ -13,7 +13,7 @@ class TransformadorProjetadoSymbol extends ElectricShape {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size.square(size),
-      painter: _CircleTrianglePainter(
+      painter: _RetanguloCurvasLateraisPainter(
         color: color,
         strokeWidth: strokeWidth,
       ),
@@ -22,17 +22,16 @@ class TransformadorProjetadoSymbol extends ElectricShape {
 
   @override
   ElectricShape copyWith({double? size, Color? color, double? strokeWidth}) {
-    return TransformadorProjetadoSymbol(
+    return PosteConcretoDtExistenteSymbol(
       color: color ?? this.color,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       size: size ?? this.size,
     );
   }
-
 }
 
-class _CircleTrianglePainter extends CustomPainter {
-  _CircleTrianglePainter({
+class _RetanguloCurvasLateraisPainter extends CustomPainter {
+  _RetanguloCurvasLateraisPainter({
     required this.color,
     this.strokeWidth,
   });
@@ -52,27 +51,44 @@ class _CircleTrianglePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
 
-    final center = Offset(size.width * 0.5, size.height * 0.52);
+    final left = size.width * 0.12;
+    final top = size.height * 0.10;
+    final right = size.width * 0.88;
+    final bottom = size.height * 0.90;
+    final midY = (top + bottom) / 2;
 
-    final radius = s * 0.42;
+    // Quadrado externo
+    final outerRect = Rect.fromLTRB(left, top, right, bottom);
+    canvas.drawRect(outerRect, paint);
 
-    canvas.drawCircle(
-      center,
-      radius,
-      paint,
-    );
+    // Curva interna esquerda
+    final leftCurve = Path()
+      ..moveTo(left, top)
+      ..quadraticBezierTo(
+        size.width * 0.42,
+        midY,
+        left,
+        bottom,
+      );
 
-    final trianglePath = Path()
-      ..moveTo(size.width * 0.52, size.height * 0.20)
-      ..lineTo(size.width * 0.27, size.height * 0.70)
-      ..lineTo(size.width * 0.76, size.height * 0.69)
-      ..close();
+    // Curva interna direita
+    final rightCurve = Path()
+      ..moveTo(right, top)
+      ..quadraticBezierTo(
+        size.width * 0.58,
+        midY,
+        right,
+        bottom,
+      );
 
-    canvas.drawPath(trianglePath, paint);
+    canvas.drawPath(leftCurve, paint);
+    canvas.drawPath(rightCurve, paint);
   }
 
   @override
-  bool shouldRepaint(covariant _CircleTrianglePainter oldDelegate) {
+  bool shouldRepaint(
+      covariant _RetanguloCurvasLateraisPainter oldDelegate,
+      ) {
     return oldDelegate.color != color ||
         oldDelegate.strokeWidth != strokeWidth;
   }

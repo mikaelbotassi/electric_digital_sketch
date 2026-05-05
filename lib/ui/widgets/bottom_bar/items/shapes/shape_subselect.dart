@@ -6,12 +6,14 @@ import 'package:simple_painter/simple_painter.dart';
 
 class ShapeSubSelect extends StatelessWidget {
   const ShapeSubSelect({
+    required this.onPressed,
     required this.shapes,
     required this.controller,
     super.key,
   });
   final PainterController controller;
   final List<ElectricShapeType> shapes;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -27,14 +29,17 @@ class ShapeSubSelect extends StatelessWidget {
                 onPressed: (){
                   if(shape.type != null){
                     controller.addShape(shape.type!);
+                    onPressed();
                     return;
                   }
                   if(shape.customWidget != null){
                     controller.addBorderlessCustomWidget(shape.customWidget!,
-                    shape.desc);
+                    shape.layerTitle);
+                    onPressed();
                     return;
                   }
                   controller.addBorderlessCustomWidget(shape.icon);
+                  onPressed();
                 },
                 child: shape.icon
               ),
