@@ -67,16 +67,16 @@ class _PosteFibraDeVidroProjetadoPainter extends CustomPainter {
     final innerRect = Rect.fromCircle(center: center, radius: innerRadius);
 
     // Preenche somente a metade direita do círculo externo
-    canvas.save();
-    canvas.clipRect(Rect.fromLTRB(center.dx, 0, size.width, size.height));
-    canvas.drawCircle(center, outerRadius, fillPaint);
-    canvas.restore();
+    canvas..save()
+    ..clipRect(Rect.fromLTRB(center.dx, 0, size.width, size.height))
+    ..drawCircle(center, outerRadius, fillPaint)
+    ..restore()
 
     // Contorno do círculo externo
-    canvas.drawCircle(center, outerRadius, borderPaint);
+    ..drawCircle(center, outerRadius, borderPaint)
 
     // Linha divisória vertical principal
-    canvas.drawLine(
+    ..drawLine(
       Offset(center.dx, center.dy - outerRadius),
       Offset(center.dx, center.dy + outerRadius),
       borderPaint,

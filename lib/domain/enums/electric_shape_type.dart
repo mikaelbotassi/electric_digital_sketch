@@ -1,5 +1,11 @@
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/aterramentos/aterramento_existente_symbol.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/aterramentos/aterramento_projetado_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_faca_existente_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_faca_projetada_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_fusivel_existente_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_fusivel_projetada_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_religadora_existente_symbol.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_religadora_projetada_symbol.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/para_raios/para_raios_existente_symbol.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/para_raios/para_raios_projetado_symbol.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_concreto_circular_existente_symbol.dart';
@@ -136,6 +142,42 @@ enum ElectricShapeType {
     desc: 'Existente',
     group: 'Para Raios',
     icon: ParaRaiosExistenteSymbol(size: 24)
+  ),
+  chaveFacaProjetada(
+    customWidget: ChaveFacaProjetadaSymbol(),
+    desc: 'Faca Projetada',
+    group: 'Chaves',
+    icon: ChaveFacaProjetadaSymbol(size: 24)
+  ),
+  chaveFacaExistente(
+    customWidget: ChaveFacaExistenteSymbol(),
+    desc: 'Faca Existente',
+    group: 'Chaves',
+    icon: ChaveFacaExistenteSymbol(size: 24)
+  ),
+  chaveFusivelProjetada(
+    customWidget: ChaveFusivelProjetadaSymbol(),
+    desc: 'Fusível Projetada',
+    group: 'Chaves',
+    icon: ChaveFusivelProjetadaSymbol(size: 24)
+  ),
+  chaveFusivelExistente(
+      customWidget: ChaveFusivelExistenteSymbol(),
+      desc: 'Fusível Existente',
+      group: 'Chaves',
+      icon: ChaveFusivelExistenteSymbol(size: 24)
+  ),
+  chaveReligadoraProjetada(
+      customWidget: ChaveReligadoraProjetadaSymbol(),
+      desc: 'Religadora Projetada',
+      group: 'Chaves',
+      icon: ChaveReligadoraProjetadaSymbol(size: 24)
+  ),
+  chaveReligadoraExistente(
+      customWidget: ChaveReligadoraExistenteSymbol(),
+      desc: 'Religadora Existente',
+      group: 'Chaves',
+      icon: ChaveReligadoraExistenteSymbol(size: 24)
   );
 
   const ElectricShapeType({
