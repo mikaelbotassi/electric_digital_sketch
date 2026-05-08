@@ -29,12 +29,15 @@ class RedeOptions extends StatelessWidget {
               ? 'Toque no segundo ponto para desenhar a linha.'
               : 'Toque na tela para marcar o primeiro ponto.',
           ),
-          PrimaryButton(
-            onPressed: controller.hasPendingLinePoint
-                ? controller.clearPendingLinePoint
-                : null,
-            enabled: controller.hasPendingLinePoint,
-            text: 'Limpar primeiro ponto',
+          SizedBox(
+            width: double.infinity,
+            child: PrimaryButton(
+              onPressed: controller.hasPendingLinePoint
+                  ? controller.clearPendingLinePoint
+                  : null,
+              enabled: controller.hasPendingLinePoint,
+              text: 'Limpar primeiro ponto',
+            ),
           ),
           DoubleSwitch(
             label: 'Tamanho',
@@ -62,13 +65,7 @@ class RedeOptions extends StatelessWidget {
               ),
             ],
           ),
-          RedeTypeSelectWidget(controller: controller),
-          OutlinedButton(
-            onPressed: controller.hasPendingLinePoint
-                ? controller.clearPendingLinePoint
-                : null,
-            child: const Text('Limpar primeiro ponto'),
-          ),
+          RedeTypeSelectWidget(controller: controller)
         ],
       ),
     );
