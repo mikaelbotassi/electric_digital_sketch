@@ -61,7 +61,6 @@ class _ChaveFacaProjetadaPainter extends CustomPainter {
     final radius = s * 0.36;
 
     final leftCircleX = center.dx - radius;
-    final rightCircleX = center.dx + radius;
 
     // Círculo externo
     canvas.drawCircle(center, radius, strokePaint);

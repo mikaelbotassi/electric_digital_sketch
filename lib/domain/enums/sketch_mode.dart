@@ -8,7 +8,8 @@ enum SketchMode {
   changes('Alterações', TablerIcons.listNumbers),
   text('Texto', TablerIcons.textRecognition),
   shapes('Formas', TablerIcons.shape),
-  layers('Camadas', TablerIcons.stackFront);
+  layers('Camadas', TablerIcons.stackFront),
+  line('Linhas', TablerIcons.line);
 
   const SketchMode(this.title, this.icon);
 

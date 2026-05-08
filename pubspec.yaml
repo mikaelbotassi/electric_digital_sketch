@@ -18,6 +18,7 @@ dependencies:
   tabler_icons_plus: ^3.41.0
   collection: ^1.19.1
   mb_color_picker: ^0.0.2
+  electric_shapes: ^1.0.2
 
 dev_dependencies:
   flutter_test:
