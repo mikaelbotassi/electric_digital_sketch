@@ -1,27 +1,14 @@
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/redes/rede_baixa_tensao.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/redes/rede_media_tensao.dart';
+import 'package:electric_shapes/electric_shapes.dart';
 import 'package:flutter/widgets.dart';
 
 enum LineStyle {
-  redeMTProjetada(
-    'Rede MT Projetada',
-    RedeMediaTensaoSymbol(size: 24)
-  ),
-  redeMTExistente(
-    'Rede MT Existente',
-    RedeMediaTensaoSymbol(size: 24, strokeWidth: 2)
-  ),
-  redeBTProjetada(
-    'Rede BT Projetada',
-    RedeBaixaTensaoSymbol(size: 24)
-  ),
-  redeBTExistente(
-    'Rede BT Existente',
-    RedeBaixaTensaoSymbol(size: 24,strokeWidth: 2,)
-  );
+  redeMTProjetada('Média Tensão Projetada', ElectricIcons.redeMediaTensaoProjetada),
+  redeMTExistente('Média Tensão Existente', ElectricIcons.redeMediaTensaoExistente),
+  redeBTProjetada('Baixa Tensão Projetada', ElectricIcons.redeBaixaTensaoProjetada),
+  redeBTExistente('Baixa Tensão Existente', ElectricIcons.redeBaixaTensaoExistente);
 
   const LineStyle(this.label, this.icon);
 
   final String label;
-  final Widget icon;
+  final IconData icon;
 }

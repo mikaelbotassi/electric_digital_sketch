@@ -20,7 +20,7 @@ class ElectricSketchController extends ChangeNotifier {
   void setMode(SketchMode mode) {
     _disablePainterTools();
     if(mode == this.mode) return;
-    if (mode != SketchMode.line) {
+    if (mode != SketchMode.redes) {
       _pendingLinePoint = null;
     }
     _mode = mode;
@@ -89,7 +89,7 @@ class ElectricSketchController extends ChangeNotifier {
   }
 
   void registerLinePoint(Offset point) {
-    if (_mode != SketchMode.line) return;
+    if (_mode != SketchMode.redes) return;
 
     final start = _pendingLinePoint;
     if (start == null) {

@@ -47,7 +47,7 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
                     boundaryMargin: 0,
                   ),
                 ),
-                if (controller.mode == SketchMode.line)
+                if (controller.mode == SketchMode.redes)
                   Positioned.fill(
                     child: GestureDetector(
                       behavior: HitTestBehavior.translucent,

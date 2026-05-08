@@ -28,8 +28,9 @@ class PrimaryButton extends StatelessWidget {
         padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: colors.primaryContainer.withAlpha(enabled ? 1000 : 200),
-          border: Border.all(color: colors.primary)
+          color: colors.primaryContainer.withAlpha(enabled ? 1000 : 100),
+          border: Border.all(
+            color: colors.primary.withAlpha(enabled ? 1000 : 100))
         ),
         child: Row(
           spacing: 8,
@@ -39,14 +40,14 @@ class PrimaryButton extends StatelessWidget {
               Icon(
                 icon,
                 color: colors.onPrimaryContainer
-                  .withAlpha(enabled ? 1000 : 200),
+                  .withAlpha(enabled ? 1000 : 100),
                 size: iconSize,
               ),
             if(text != null)
               Text(
                 text!,
                 style: textTheme.bodyMedium?.apply(color: colors
-                    .onPrimaryContainer.withAlpha(enabled ? 1000 : 200)),
+                    .onPrimaryContainer.withAlpha(enabled ? 1000 : 100)),
               ),
           ],
         ),

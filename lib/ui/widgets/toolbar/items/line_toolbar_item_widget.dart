@@ -6,7 +6,7 @@ class LineToolbarItemWidget extends ToolbarItemWidget {
   const LineToolbarItemWidget({required super.controller, super.key});
 
   @override
-  SketchMode get mode => SketchMode.line;
+  SketchMode get mode => SketchMode.redes;
 
   @override
   void onPressed(BuildContext context) {

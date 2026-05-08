@@ -1,5 +1,5 @@
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/electric_shape.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/double_switch.dart';
+import 'package:electric_shapes/electric_shapes.dart';
 import 'package:flutter/material.dart';
 import 'package:mb_color_picker/mb_color_picker.dart';
 import 'package:simple_painter/simple_painter.dart';

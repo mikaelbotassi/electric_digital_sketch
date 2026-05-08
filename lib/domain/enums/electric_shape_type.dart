@@ -1,23 +1,5 @@
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/aterramentos/aterramento_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/aterramentos/aterramento_projetado_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_faca_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_faca_projetada_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_fusivel_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_fusivel_projetada_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_religadora_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/chaves/chave_religadora_projetada_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/para_raios/para_raios_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/para_raios/para_raios_projetado_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_concreto_circular_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_concreto_circular_projetado_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_concreto_dt_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_concreto_dt_projetado_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_fibra_vidro_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_fibra_vidro_projetado_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/postes/poste_madeira_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/transformadores/transformador_existente_symbol.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/electric_shapes/transformadores/transformador_projetado_symbol.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:electric_shapes/electric_shapes.dart';
+import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:simple_painter/simple_painter.dart';
 

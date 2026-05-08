@@ -4,7 +4,7 @@ import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/brush_option
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/change_list/changes_list.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/erase_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/layers/layer_options.dart';
-import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/line_options.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/redes/rede_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/select_options.dart';
 import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/shape_select.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +29,7 @@ class BottomBarContentFactory {
       SketchMode.layers => LayerOptions(
         controller: controller.painterController
       ),
-      SketchMode.line => LineOptions(
+      SketchMode.redes => RedeOptions(
         controller: controller,
       ),
       SketchMode.shapes => ShapeSelect(

@@ -1,7 +1,7 @@
 import 'package:electric_digital_sketch/ui/widgets/core/toggle_button/toggle_button.dart';
 import 'package:flutter/material.dart';
 
-class ToggleButtonOption<T> {
+class ToggleButtonOption<T extends Object> {
   const ToggleButtonOption({
     required this.value,
     this.icon,
@@ -13,7 +13,7 @@ class ToggleButtonOption<T> {
   final T value;
 }
 
-class ToggleButtonGroup<T> extends StatefulWidget {
+class ToggleButtonGroup<T extends Object> extends StatefulWidget {
   const ToggleButtonGroup({
     required this.onChanged,
     required this.options,
@@ -29,7 +29,8 @@ class ToggleButtonGroup<T> extends StatefulWidget {
   State<ToggleButtonGroup<T>> createState() => _ToggleButtonGroupState<T>();
 }
 
-class _ToggleButtonGroupState<T> extends State<ToggleButtonGroup<T>> {
+class _ToggleButtonGroupState<T extends Object> extends
+  State<ToggleButtonGroup<T>> {
   late T? _value;
 
   @override

@@ -9,7 +9,7 @@ enum SketchMode {
   text('Texto', TablerIcons.textRecognition),
   shapes('Formas', TablerIcons.shape),
   layers('Camadas', TablerIcons.stackFront),
-  line('Linhas', TablerIcons.line);
+  redes('Redes', TablerIcons.line);
 
   const SketchMode(this.title, this.icon);
 
