@@ -37,6 +37,12 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
     widget.onChanged(LatLong(latitude, longitude));
   }
 
+  void clear(){
+    latControl.text = '';
+    longControl.text = '';
+    _notifyChanged();
+  }
+
   @override
   void initState() {
     final initialValue = widget.initialValue;
@@ -70,7 +76,7 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
           child: Row(
             spacing: 8,
             children: [
-              Container(
+              DecoratedBox(
                 decoration: BoxDecoration(
                   border: BorderDirectional(
                     end: BorderSide(color: colors.outline.withAlpha(100))
@@ -78,7 +84,7 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
                 ),
                 child: IconButtonWidget(
                   color: colors.primary,
-                  icon: PhosphorIcons.mapPin(),
+                  icon: PhosphorIconsRegular.mapPin,
                   onPressed: () async {
                     final pos = await LocationService.getCurrentPosition();
                     latControl.text = pos?.latitude.toString() ?? '';
@@ -109,6 +115,17 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
                   label: 'Longitude',
                 ),
               ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  border: BorderDirectional(
+                    start: BorderSide(color: colors.outline.withAlpha(100))
+                  ),
+                ),
+                child:IconButtonWidget(
+                  icon: PhosphorIconsRegular.x,
+                  color: colors.outline.withAlpha(100),
+                  onPressed: clear,
+                ))
             ],
           ),
         ),
