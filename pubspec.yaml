@@ -10,17 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.9
-  very_good_analysis: ^10.2.0
   phosphor_flutter: ^2.1.0
   simple_painter: ^1.4.0
   universal_io: ^2.3.1
-  tabler_icons_plus: ^3.41.0
+  tabler_icons_plus: ^3.44.0
   collection: ^1.19.1
   mb_color_picker: ^0.0.2
-  electric_shapes: ^1.0.2
+  electric_shapes: ^1.0.5
+  geolocator: ^14.0.2
 
 dev_dependencies:
+  very_good_analysis: ^10.2.0
   flutter_test:
     sdk: flutter
 

@@ -1,3 +1,5 @@
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/coordenada_input.dart';
+import 'package:electric_digital_sketch/ui/widgets/bottom_bar/items/shapes/desc_input.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/double_switch.dart';
 import 'package:electric_shapes/electric_shapes.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,7 @@ class CustomShapeOptions extends StatelessWidget {
           Row(
             spacing: 16,
             children: [
-              const Text('Cor da Borda'),
+              const Text('Cor'),
               MbColorPickerWidget(
                 allowedTypes: const {ColorPickerType.solid},
                 onChanged: (newValue){
@@ -43,12 +45,40 @@ class CustomShapeOptions extends StatelessWidget {
             ],
           ),
           DoubleSwitch(
-            label: 'Grossura da Borda',
+            label: 'Grossura',
             initialValue: widget.strokeWidth,
             onChanged: (newValue){
               controller.changeCustomWidgetValues(
                 item,
                 widget: widget.copyWith(strokeWidth: newValue)
+              );
+            },
+          ),
+          CoordenadaInput(
+            initialValue: widget.latLong,
+            onChanged: (newPosition){
+              controller.changeCustomWidgetValues(
+                item,
+                widget: widget.copyWith(latLong: newPosition)
+              );
+            },
+          ),
+          DescInput(
+            initialValue: widget.text,
+            onChanged: (newText){
+              controller.changeCustomWidgetValues(
+                item,
+                widget: widget.copyWith(text: newText)
+              );
+            },
+          ),
+          DoubleSwitch(
+            label: 'Tamanho da fonte',
+            initialValue: widget.fontSize,
+            onChanged: (newValue){
+              controller.changeCustomWidgetValues(
+                item,
+                widget: widget.copyWith(fontSize: newValue)
               );
             },
           ),

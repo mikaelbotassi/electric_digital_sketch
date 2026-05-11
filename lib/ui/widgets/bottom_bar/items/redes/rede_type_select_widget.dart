@@ -14,7 +14,7 @@ class RedeTypeSelectWidget extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        const Text('Tipo de linha'),
+        const Text('Tipo de rede'),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: ToggleButtonGroup(

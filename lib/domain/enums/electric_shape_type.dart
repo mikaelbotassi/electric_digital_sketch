@@ -48,115 +48,115 @@ enum ElectricShapeType {
     group: 'Geral'
   ),
   transformadorExistente(
-    customWidget: TransformadorExistenteSymbol(),
+    customWidget: TransformadorExistenteSymbol(fontSize: 12),
     desc: 'Existente',
     group: 'Transformadores',
     icon: TransformadorExistenteSymbol(size: 24)
   ),
   transformadorProjetado(
-    customWidget: TransformadorProjetadoSymbol(),
+    customWidget: TransformadorProjetadoSymbol(fontSize: 12),
     desc: 'Projetado',
     group: 'Transformadores',
     icon: TransformadorProjetadoSymbol(size: 24)
   ),
   posteConcretoDtExistente(
-    customWidget: PosteConcretoDtExistenteSymbol(),
+    customWidget: PosteConcretoDtExistenteSymbol(fontSize: 12),
     desc: 'Concreto DT Existente',
     group: 'Postes',
     icon: PosteConcretoDtExistenteSymbol(size: 24)
   ),
   posteConcretoDtProjetado(
-    customWidget: PosteConcretoDtProjetadoSymbol(),
+    customWidget: PosteConcretoDtProjetadoSymbol(fontSize: 12),
     desc: 'Concreto DT Projetado',
     group: 'Postes',
     icon: PosteConcretoDtProjetadoSymbol(size: 24)
   ),
   posteConcretoCircularExistente(
-    customWidget: PosteConcretoCircularExistenteSymbol(),
+    customWidget: PosteConcretoCircularExistenteSymbol(fontSize: 12),
     desc: 'Concreto Circular Existente',
     group: 'Postes',
     icon: PosteConcretoCircularExistenteSymbol(size: 24)
   ),
   posteConcretoCircularProjetado(
-    customWidget: PosteConcretoCircularProjetadoSymbol(),
+    customWidget: PosteConcretoCircularProjetadoSymbol(fontSize: 12),
     desc: 'Concreto Circular Projetado',
     group: 'Postes',
     icon: PosteConcretoCircularProjetadoSymbol(size: 24)
   ),
   posteFibraVidroProjetado(
-    customWidget: PosteFibraVidroProjetadoSymbol(),
+    customWidget: PosteFibraVidroProjetadoSymbol(fontSize: 12),
     desc: 'Fibra de Vidro Projetado',
     group: 'Postes',
     icon: PosteFibraVidroProjetadoSymbol(size: 24)
   ),
   posteFibraVidroExistente(
-    customWidget: PosteFibraVidroExistenteSymbol(),
+    customWidget: PosteFibraVidroExistenteSymbol(fontSize: 12),
     desc: 'Fibra de Vidro Existente',
     group: 'Postes',
     icon: PosteFibraVidroExistenteSymbol(size: 24)
   ),
   posteMadeiraExistente(
-    customWidget: PosteMadeiraExistenteSymbol(),
+    customWidget: PosteMadeiraExistenteSymbol(fontSize: 12),
     desc: 'Madeira Existente',
     group: 'Postes',
     icon: PosteMadeiraExistenteSymbol(size: 24)
   ),
   aterramentoProjetado(
-    customWidget: AterramentoProjetadoSymbol(),
+    customWidget: AterramentoProjetadoSymbol(fontSize: 12),
     desc: 'Projetado',
     group: 'Aterramentos',
     icon: AterramentoProjetadoSymbol(size: 24)
   ),
   aterramentoExistente(
-    customWidget: AterramentoExistenteSymbol(),
+    customWidget: AterramentoExistenteSymbol(fontSize: 12),
     desc: 'Existente',
     group: 'Aterramentos',
     icon: AterramentoExistenteSymbol(size: 24)
   ),
   paraRaiosProjetado(
-    customWidget: ParaRaiosProjetadoSymbol(),
+    customWidget: ParaRaiosProjetadoSymbol(fontSize: 12),
     desc: 'Projetado',
     group: 'Para Raios',
     icon: ParaRaiosProjetadoSymbol(size: 24)
   ),
   paraRaiosExistente(
-    customWidget: ParaRaiosExistenteSymbol(),
+    customWidget: ParaRaiosExistenteSymbol(fontSize: 12),
     desc: 'Existente',
     group: 'Para Raios',
     icon: ParaRaiosExistenteSymbol(size: 24)
   ),
   chaveFacaProjetada(
-    customWidget: ChaveFacaProjetadaSymbol(),
+    customWidget: ChaveFacaProjetadaSymbol(fontSize: 12),
     desc: 'Faca Projetada',
     group: 'Chaves',
     icon: ChaveFacaProjetadaSymbol(size: 24)
   ),
   chaveFacaExistente(
-    customWidget: ChaveFacaExistenteSymbol(),
+    customWidget: ChaveFacaExistenteSymbol(fontSize: 12),
     desc: 'Faca Existente',
     group: 'Chaves',
     icon: ChaveFacaExistenteSymbol(size: 24)
   ),
   chaveFusivelProjetada(
-    customWidget: ChaveFusivelProjetadaSymbol(),
+    customWidget: ChaveFusivelProjetadaSymbol(fontSize: 12),
     desc: 'Fusível Projetada',
     group: 'Chaves',
     icon: ChaveFusivelProjetadaSymbol(size: 24)
   ),
   chaveFusivelExistente(
-      customWidget: ChaveFusivelExistenteSymbol(),
+      customWidget: ChaveFusivelExistenteSymbol(fontSize: 12),
       desc: 'Fusível Existente',
       group: 'Chaves',
       icon: ChaveFusivelExistenteSymbol(size: 24)
   ),
   chaveReligadoraProjetada(
-      customWidget: ChaveReligadoraProjetadaSymbol(),
+      customWidget: ChaveReligadoraProjetadaSymbol(fontSize: 12),
       desc: 'Religadora Projetada',
       group: 'Chaves',
       icon: ChaveReligadoraProjetadaSymbol(size: 24)
   ),
   chaveReligadoraExistente(
-      customWidget: ChaveReligadoraExistenteSymbol(),
+      customWidget: ChaveReligadoraExistenteSymbol(fontSize: 12),
       desc: 'Religadora Existente',
       group: 'Chaves',
       icon: ChaveReligadoraExistenteSymbol(size: 24)
