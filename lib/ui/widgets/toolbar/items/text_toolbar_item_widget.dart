@@ -6,8 +6,8 @@ import 'package:electric_digital_sketch/ui/widgets/toolbar/items/toolbar_item_wi
 import 'package:flutter/cupertino.dart';
 import 'package:simple_painter/simple_painter.dart';
 
+/// Toolbar entry that starts the text creation flow.
 class TextToolbarItemWidget extends ToolbarItemWidget {
-
   const TextToolbarItemWidget({required super.controller, super.key});
 
   @override
@@ -19,15 +19,15 @@ class TextToolbarItemWidget extends ToolbarItemWidget {
   @override
   FutureOr<void> onPressed(BuildContext context) async {
     controller.setMode(mode);
-    final text = await Navigator.push(context,
+    final text = await Navigator.push(
+      context,
       PageRouteBuilder<String>(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) =>
-        const AddEditTextPage(),
+            const AddEditTextPage(),
       ),
     );
-    if(text != null && text.isNotEmpty) await painterController.addText(text);
+    if (text != null && text.isNotEmpty) await painterController.addText(text);
     controller.setMode(SketchMode.select);
   }
-
 }

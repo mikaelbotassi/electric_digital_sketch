@@ -5,6 +5,7 @@ import 'package:electric_digital_sketch/ui/widgets/core/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+/// Result action button that confirms the generated image.
 class ConfirmButton extends StatefulWidget {
   const ConfirmButton({required this.file, this.onConfirm, super.key});
 
@@ -16,7 +17,6 @@ class ConfirmButton extends StatefulWidget {
 }
 
 class _ConfirmButtonState extends State<ConfirmButton> {
-
   bool _isConfirming = false;
 
   Future<void> _confirmImage() async {

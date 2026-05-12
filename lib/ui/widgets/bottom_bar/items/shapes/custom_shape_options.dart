@@ -54,6 +54,16 @@ class CustomShapeOptions extends StatelessWidget {
               );
             },
           ),
+          DoubleSwitch(
+            label: 'Tamanho da fonte',
+            initialValue: widget.fontSize,
+            onChanged: (newValue){
+              controller.changeCustomWidgetValues(
+                  item,
+                  widget: widget.copyWith(fontSize: newValue)
+              );
+            },
+          ),
           CoordenadaInput(
             initialValue: widget.latLong,
             onChanged: (newPosition){
@@ -69,16 +79,6 @@ class CustomShapeOptions extends StatelessWidget {
               controller.changeCustomWidgetValues(
                 item,
                 widget: widget.copyWith(text: newText)
-              );
-            },
-          ),
-          DoubleSwitch(
-            label: 'Tamanho da fonte',
-            initialValue: widget.fontSize,
-            onChanged: (newValue){
-              controller.changeCustomWidgetValues(
-                item,
-                widget: widget.copyWith(fontSize: newValue)
               );
             },
           ),

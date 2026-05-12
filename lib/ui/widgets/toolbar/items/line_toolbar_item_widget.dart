@@ -2,6 +2,7 @@ import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/toolbar_item_widget.dart';
 import 'package:flutter/cupertino.dart';
 
+/// Toolbar entry that activates network line mode.
 class LineToolbarItemWidget extends ToolbarItemWidget {
   const LineToolbarItemWidget({required super.controller, super.key});
 

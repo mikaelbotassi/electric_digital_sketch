@@ -10,12 +10,21 @@ import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 import 'package:universal_io/io.dart';
 
+/// Main editor page exposed by the package.
+///
+/// This widget wraps the painter canvas, toolbar, bottom options and result
+/// flow used to create and export electrical sketches.
 class ElectricSketchPage extends StatefulWidget {
+  /// Creates the editor page.
+  ///
+  /// When [onConfirm] is provided, the generated image file is returned after
+  /// the user confirms the exported result.
   const ElectricSketchPage({
     this.onConfirm,
     super.key,
   });
 
+  /// Called when the user confirms the generated result image.
   final FutureOr<void> Function(File imageFile)? onConfirm;
 
   @override

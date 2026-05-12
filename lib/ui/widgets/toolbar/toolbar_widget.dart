@@ -10,6 +10,7 @@ import 'package:electric_digital_sketch/ui/widgets/toolbar/items/text_toolbar_it
 import 'package:flutter/material.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
+/// Floating vertical toolbar used to switch editor modes.
 class ToolbarWidget extends StatefulWidget {
   const ToolbarWidget({
     required this.controller,
@@ -61,7 +62,7 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 8,
-                vertical: _collapsed ? 16: 8
+                vertical: _collapsed ? 16 : 8,
               ),
               decoration: BoxDecoration(
                 color: colors.primary,
@@ -95,7 +96,7 @@ class _ToolbarWidgetState extends State<ToolbarWidget> {
                   ChangesToolbarItemWidget(controller: widget.controller),
                   TextToolbarItemWidget(controller: widget.controller),
                   LayerToolbarItemWidget(controller: widget.controller),
-                  ShapesToolbarItemWidget(controller: widget.controller)
+                  ShapesToolbarItemWidget(controller: widget.controller),
                 ],
               ),
             ),

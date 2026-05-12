@@ -2,8 +2,8 @@ import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/ui/widgets/toolbar/items/toolbar_item_widget.dart';
 import 'package:flutter/cupertino.dart';
 
+/// Toolbar entry that opens the layer panel.
 class LayerToolbarItemWidget extends ToolbarItemWidget {
-
   const LayerToolbarItemWidget({required super.controller, super.key});
 
   @override
@@ -13,5 +13,4 @@ class LayerToolbarItemWidget extends ToolbarItemWidget {
   void onPressed(BuildContext context) {
     controller.setMode(mode);
   }
-
 }

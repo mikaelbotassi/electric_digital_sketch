@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Single visual option used inside the package toggle group widget.
 class ToggleButton extends StatelessWidget {
   const ToggleButton({
     required this.onPressed,

@@ -5,12 +5,9 @@ import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 
+/// Base visual widget used by toolbar entries.
 abstract class ToolbarItemWidget extends StatelessWidget {
-
-  const ToolbarItemWidget({
-    required this.controller,
-    super.key
-  });
+  const ToolbarItemWidget({required this.controller, super.key});
 
   SketchMode get mode;
   PainterController get painterController => controller.painterController;
@@ -33,7 +30,7 @@ abstract class ToolbarItemWidget extends StatelessWidget {
         ),
         child: Icon(
           mode.icon,
-            color: isActive ? colors.onPrimary : colors.primary
+          color: isActive ? colors.onPrimary : colors.primary,
         ),
       ),
     );

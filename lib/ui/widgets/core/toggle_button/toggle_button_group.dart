@@ -1,6 +1,7 @@
 import 'package:electric_digital_sketch/ui/widgets/core/toggle_button/toggle_button.dart';
 import 'package:flutter/material.dart';
 
+/// Describes a selectable option inside [ToggleButtonGroup].
 class ToggleButtonOption<T extends Object> {
   const ToggleButtonOption({
     required this.value,
@@ -13,6 +14,7 @@ class ToggleButtonOption<T extends Object> {
   final T value;
 }
 
+/// Generic segmented selector built with the package toggle button style.
 class ToggleButtonGroup<T extends Object> extends StatefulWidget {
   const ToggleButtonGroup({
     required this.onChanged,
@@ -29,8 +31,8 @@ class ToggleButtonGroup<T extends Object> extends StatefulWidget {
   State<ToggleButtonGroup<T>> createState() => _ToggleButtonGroupState<T>();
 }
 
-class _ToggleButtonGroupState<T extends Object> extends
-  State<ToggleButtonGroup<T>> {
+class _ToggleButtonGroupState<T extends Object>
+    extends State<ToggleButtonGroup<T>> {
   late T? _value;
 
   @override

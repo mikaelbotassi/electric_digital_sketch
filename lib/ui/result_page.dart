@@ -4,6 +4,7 @@ import 'package:electric_digital_sketch/ui/widgets/result_appbar/result_appbar.d
 import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart';
 
+/// Displays the exported sketch image and the result actions.
 class ResultPage extends StatelessWidget {
   const ResultPage({
     required this.imageFile,

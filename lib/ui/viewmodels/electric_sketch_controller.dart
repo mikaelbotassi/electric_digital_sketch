@@ -8,17 +8,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:simple_painter/simple_painter.dart';
 import 'package:universal_io/io.dart';
 
+/// Controller responsible for the editor state and export helpers.
+///
+/// It coordinates the active tool, line creation workflow and the underlying
+/// [PainterController] used to manipulate the canvas.
 class ElectricSketchController extends ChangeNotifier {
+  /// Default pixel ratio used when exporting the sketch as PNG.
   static const double defaultExportPixelRatio = 4;
 
+  /// Underlying painter controller used to render and mutate the canvas.
   final painterController = PainterController();
   Offset? _pendingLinePoint;
   LineStyle _lineStyle = LineStyle.redeBTExistente;
   SketchMode _mode = SketchMode.select;
+
+  /// Currently active interaction mode in the editor.
   SketchMode get mode => _mode;
+
+  /// First point waiting for the second tap when drawing network lines.
   Offset? get pendingLinePoint => _pendingLinePoint;
+
+  /// Whether there is a pending first point for a network line.
   bool get hasPendingLinePoint => _pendingLinePoint != null;
+
+  /// Selected visual style for newly created network lines.
   LineStyle get lineStyle => _lineStyle;
+
+  /// Changes the active editor mode.
   void setMode(SketchMode mode) {
     _disablePainterTools();
     if (mode == this.mode) return;
@@ -44,7 +60,10 @@ class ElectricSketchController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Whether there is at least one action available to undo.
   bool get canUndo => painterController.changeActions.value.index >= 0;
+
+  /// Undoes the most recent action, if available.
   void undo() {
     painterController.undo();
     notifyListeners();
@@ -59,6 +78,7 @@ class ElectricSketchController extends ChangeNotifier {
     return true;
   }
 
+  /// Redoes the next action in history, if available.
   void redo() {
     painterController.redo();
     notifyListeners();
@@ -74,18 +94,24 @@ class ElectricSketchController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Updates the line style used by [registerLinePoint].
   void setLineStyle(LineStyle value) {
     if (_lineStyle == value) return;
     _lineStyle = value;
     notifyListeners();
   }
 
+  /// Clears the first pending point of the network line workflow.
   void clearPendingLinePoint() {
     if (_pendingLinePoint == null) return;
     _pendingLinePoint = null;
     notifyListeners();
   }
 
+  /// Registers a point for the network line workflow.
+  ///
+  /// The first call stores the start point. The second call draws a line using
+  /// the current brush settings and the selected [lineStyle].
   void registerLinePoint(Offset point) {
     if (_mode != SketchMode.redes) return;
 
@@ -107,6 +133,7 @@ class ElectricSketchController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Renders the current sketch as PNG bytes.
   Future<Uint8List?> renderImageBytes({
     double pixelRatio = defaultExportPixelRatio,
   }) {
@@ -116,6 +143,7 @@ class ElectricSketchController extends ChangeNotifier {
     return painterController.renderImage(pixelRatio: resolvedPixelRatio);
   }
 
+  /// Renders the current sketch as a temporary PNG file.
   Future<File?> renderImageFile({
     double pixelRatio = defaultExportPixelRatio,
     String fileNamePrefix = 'electric_sketch',
@@ -128,6 +156,7 @@ class ElectricSketchController extends ChangeNotifier {
     );
   }
 
+  /// Persists PNG bytes to a temporary file.
   static Future<File> writeImageBytesToTemp(
     Uint8List imageBytes, {
     String fileNamePrefix = 'electric_sketch',
@@ -142,6 +171,10 @@ class ElectricSketchController extends ChangeNotifier {
     return file;
   }
 
+  /// Copies an exported PNG file to the user downloads directory when possible.
+  ///
+  /// On platforms where the downloads directory cannot be inferred, `null` is
+  /// returned.
   static Future<File?> saveImageToDownloads(
     File sourceFile, {
     String fileNamePrefix = 'electric_sketch',

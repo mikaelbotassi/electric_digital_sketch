@@ -3,8 +3,8 @@ import 'package:electric_digital_sketch/ui/widgets/toolbar/items/toolbar_item_wi
 import 'package:flutter/cupertino.dart';
 import 'package:simple_painter/simple_painter.dart';
 
+/// Toolbar entry that activates erase mode.
 class EraseToolbarItemWidget extends ToolbarItemWidget {
-
   const EraseToolbarItemWidget({required super.controller, super.key});
 
   @override
@@ -20,5 +20,4 @@ class EraseToolbarItemWidget extends ToolbarItemWidget {
       painterController.toggleErasing();
     }
   }
-
 }

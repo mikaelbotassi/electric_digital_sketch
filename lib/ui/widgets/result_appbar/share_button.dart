@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
+/// Result action button used to share or save the exported image.
 class ShareButton extends StatefulWidget {
   const ShareButton({required this.file, super.key});
 
@@ -17,7 +18,6 @@ class ShareButton extends StatefulWidget {
 }
 
 class _ShareButtonState extends State<ShareButton> {
-
   bool _isDownloading = false;
 
   String get _suggestedFileName {
@@ -99,9 +99,9 @@ class _ShareButtonState extends State<ShareButton> {
       onPressed: _isDownloading ? null : _downloadImage,
       color: colors.primary,
       enabled: !_isDownloading,
-      icon: defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform ==
-              TargetPlatform.iOS
+      icon:
+          defaultTargetPlatform == TargetPlatform.android ||
+              defaultTargetPlatform == TargetPlatform.iOS
           ? PhosphorIconsRegular.export
           : PhosphorIconsRegular.download,
     );

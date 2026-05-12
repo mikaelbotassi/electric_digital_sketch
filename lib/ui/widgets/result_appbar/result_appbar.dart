@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 import 'package:universal_io/io.dart';
 
+/// App bar shown on the result preview page.
 class ResultAppbar extends StatelessWidget implements PreferredSizeWidget {
   const ResultAppbar({
     required this.file,
@@ -42,7 +43,7 @@ class ResultAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 Text(
                   'Resultado',
-                  style: textTheme.titleLarge?.copyWith(color: colors.primary)
+                  style: textTheme.titleLarge?.copyWith(color: colors.primary),
                 ),
               ],
             ),
@@ -50,8 +51,8 @@ class ResultAppbar extends StatelessWidget implements PreferredSizeWidget {
               spacing: 8,
               children: [
                 ShareButton(file: file),
-                if(onConfirm != null)
-                  ConfirmButton(file: file, onConfirm: onConfirm)
+                if (onConfirm != null)
+                  ConfirmButton(file: file, onConfirm: onConfirm),
               ],
             ),
           ],

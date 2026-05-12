@@ -22,6 +22,8 @@ dependencies:
   share_plus: ^11.1.0
 
 dev_dependencies:
+  file_selector_platform_interface: ^2.7.0
+  geolocator_platform_interface: ^4.2.6
   very_good_analysis: ^10.2.0
   flutter_test:
     sdk: flutter

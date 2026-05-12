@@ -5,74 +5,74 @@ import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 import 'package:simple_painter/src/models/brush_model.dart';
 
-extension PainterControllerExtension on PainterController{
-
-  void addBorderlessCustomWidget(Widget widget, [String? layerTitle]){
+/// Convenience helpers that adapt `simple_painter` to the package workflow.
+extension PainterControllerExtension on PainterController {
+  void addBorderlessCustomWidget(Widget widget, [String? layerTitle]) {
     addCustomWidget(widget, layerTitle: layerTitle);
     final item = value.selectedItem;
-    if(item is CustomWidgetItem){
+    if (item is CustomWidgetItem) {
       changeCustomWidgetValues(
         item,
         borderWidth: 0,
         borderColor: Colors.transparent,
-        borderRadius: BorderRadius.zero
+        borderRadius: BorderRadius.zero,
       );
     }
     return;
   }
 
   void drawLine(
-      Offset start,
-      Offset end, {
-        Color color = Colors.black,
-        double thickness = 2,
-        LineStyle style = LineStyle.redeBTExistente,
-        String? layerTitle,
-      }) {
+    Offset start,
+    Offset end, {
+    Color color = Colors.black,
+    double thickness = 2,
+    LineStyle style = LineStyle.redeBTExistente,
+    String? layerTitle,
+  }) {
     if (start == end) return;
 
     final resolvedThickness = _resolveThickness(style, thickness);
     final path = switch (style) {
       LineStyle.redeMTProjetada => _buildDashedPath(
-            start: start,
-            end: end,
-            color: color,
-            thickness: resolvedThickness,
-            dashLength: 28,
-            gapLength: 14,
-          ),
+        start: start,
+        end: end,
+        color: color,
+        thickness: resolvedThickness,
+        dashLength: 28,
+        gapLength: 14,
+      ),
       LineStyle.redeMTExistente => _buildDashedPath(
-            start: start,
-            end: end,
-            color: color,
-            thickness: resolvedThickness,
-            dashLength: 18,
-            gapLength: 10,
-          ),
+        start: start,
+        end: end,
+        color: color,
+        thickness: resolvedThickness,
+        dashLength: 18,
+        gapLength: 10,
+      ),
       LineStyle.redeBTProjetada => <DrawModel?>[
-          DrawModel(
-            offset: start,
-            color: color,
-            strokeWidth: resolvedThickness,
-          ),
-          DrawModel(
-            offset: end,
-            color: color,
-            strokeWidth: resolvedThickness,
-          ),
-        ],
+        DrawModel(
+          offset: start,
+          color: color,
+          strokeWidth: resolvedThickness,
+        ),
+        DrawModel(
+          offset: end,
+          color: color,
+          strokeWidth: resolvedThickness,
+        ),
+      ],
       LineStyle.redeBTExistente => <DrawModel?>[
-          DrawModel(
-            offset: start,
-            color: color,
-            strokeWidth: resolvedThickness,
-          ),
-          DrawModel(
-            offset: end,
-            color: color,
-            strokeWidth: resolvedThickness,
-          ),
-        ],
+        DrawModel(
+          offset: start,
+          color: color,
+          strokeWidth: resolvedThickness,
+        ),
+        DrawModel(
+          offset: end,
+          color: color,
+          strokeWidth: resolvedThickness,
+        ),
+      ],
     };
 
     value = value.copyWith(
@@ -80,7 +80,6 @@ extension PainterControllerExtension on PainterController{
     );
     endPath();
   }
-
 }
 
 List<DrawModel?> _buildDashedPath({
@@ -102,32 +101,33 @@ List<DrawModel?> _buildDashedPath({
 
   var drawn = 0.0;
   while (drawn < distance) {
-    final dashStart = start + Offset(
-      direction.dx * drawn,
-      direction.dy * drawn
-    );
+    final dashStart =
+        start + Offset(direction.dx * drawn, direction.dy * drawn);
     final dashEndDistance = (drawn + dashLength) > distance
         ? distance
         : (drawn + dashLength);
-    final dashEnd = start + Offset(
-      direction.dx * dashEndDistance,
-      direction.dy * dashEndDistance,
-    );
+    final dashEnd =
+        start +
+        Offset(
+          direction.dx * dashEndDistance,
+          direction.dy * dashEndDistance,
+        );
 
-    path..add(
-      DrawModel(
-        offset: dashStart,
-        color: color,
-        strokeWidth: thickness,
-      ),
-    )
-    ..add(
-      DrawModel(
-        offset: dashEnd,
-        color: color,
-        strokeWidth: thickness,
-      ),
-    );
+    path
+      ..add(
+        DrawModel(
+          offset: dashStart,
+          color: color,
+          strokeWidth: thickness,
+        ),
+      )
+      ..add(
+        DrawModel(
+          offset: dashEnd,
+          color: color,
+          strokeWidth: thickness,
+        ),
+      );
 
     if (dashEndDistance < distance) {
       path.add(null);

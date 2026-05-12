@@ -2,6 +2,7 @@ import 'package:electric_digital_sketch/ui/add_edit_text_page.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 
+/// Binds painter events to package-specific editing flows.
 class ListenerService {
   late PainterController controller;
   late BuildContext context;
@@ -29,11 +30,11 @@ class ListenerService {
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) =>
             AddEditTextPage(
-          defaultText: item.text,
-        ),
+              defaultText: item.text,
+            ),
       ),
     );
-    if(text == null) controller.removeItem(layerIndex: item.layer.index);
+    if (text == null) controller.removeItem(layerIndex: item.layer.index);
     final newItem = item.copyWith(text: text);
     controller.changeTextValues(newItem);
   }

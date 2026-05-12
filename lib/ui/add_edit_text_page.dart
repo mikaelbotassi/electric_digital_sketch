@@ -3,6 +3,7 @@ import 'package:electric_digital_sketch/ui/widgets/add_text_page/add_text_page_h
 import 'package:electric_digital_sketch/ui/widgets/core/text_input.dart';
 import 'package:flutter/material.dart';
 
+/// Modal page used to create or edit a text item in the sketch.
 class AddEditTextPage extends StatefulWidget {
   const AddEditTextPage({this.defaultText, super.key});
 
@@ -35,12 +36,16 @@ class _AddEditTextPageState extends State<AddEditTextPage> {
               child: Column(
                 children: [
                   const AddTextPageHeader(),
-                  Expanded(child: SingleChildScrollView(
-                    child: TextInput(controller: textFieldController)
-                  )),
-                  AddTextPageBottom(onConfirm: (){
-                    Navigator.pop(context, textFieldController.text);
-                  })
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: TextInput(controller: textFieldController),
+                    ),
+                  ),
+                  AddTextPageBottom(
+                    onConfirm: () {
+                      Navigator.pop(context, textFieldController.text);
+                    },
+                  ),
                 ],
               ),
             ),
