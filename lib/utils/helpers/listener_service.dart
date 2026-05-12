@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:electric_digital_sketch/ui/add_edit_text_page.dart';
-import 'package:electric_digital_sketch/widgets/select_image.dart';
-// ignore: directives_ordering
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
 
@@ -15,12 +11,10 @@ class ListenerService {
   ) async {
     controller = painterController;
     context = buildContext;
-    painterController.eventListener((ControllerEvent event) async {
+    painterController.eventListener((event) async {
       if (event is ItemPressEvent) {
         if (event.item is TextItem) {
           await changeTextItemValue(event.item as TextItem);
-        } else if (event.item is ImageItem) {
-          await changeImageItemValue(event.item as ImageItem);
         } else if (event.item is ShapeItem) {
           await changeShapeItemValue(event.item as ShapeItem);
         }
@@ -42,18 +36,6 @@ class ListenerService {
     if(text == null) controller.removeItem(layerIndex: item.layer.index);
     final newItem = item.copyWith(text: text);
     controller.changeTextValues(newItem);
-  }
-
-  Future<void> changeImageItemValue(ImageItem item) async {
-    final imageUint8List = await showDialog<Uint8List>(
-      context: context,
-      builder: (context) => const SelectImageDialog(
-        title: 'Select Image',
-      ),
-    );
-    if (imageUint8List == null) return;
-    final newItem = item.copyWith(image: imageUint8List);
-    controller.changeImageValues(newItem);
   }
 
   Future<void> changeShapeItemValue(ShapeItem item) async {
