@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:electric_digital_sketch/domain/enums/line_style.dart';
 import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
-import 'package:electric_digital_sketch/ui/widgets/settings/custom_widget.dart';
 import 'package:electric_digital_sketch/utils/extensions/painter_controller_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:simple_painter/simple_painter.dart';
@@ -68,11 +67,6 @@ class ElectricSketchController extends ChangeNotifier {
 
   Future<void> setBackgroundImage(Uint8List image) async {
     await painterController.setBackgroundImage(image);
-    notifyListeners();
-  }
-
-  void addCustomWidget(CustomWidget customWidget) {
-    painterController.addCustomWidget(customWidget);
     notifyListeners();
   }
 
