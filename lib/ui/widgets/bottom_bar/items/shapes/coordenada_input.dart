@@ -24,6 +24,7 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
 
   late final TextEditingController latControl;
   late final TextEditingController longControl;
+  bool _loading = false;
 
   void _notifyChanged() {
     final latitude = double.tryParse(latControl.text);
@@ -82,13 +83,22 @@ class _CoordenadaInputState extends State<CoordenadaInput> {
                     end: BorderSide(color: colors.outline.withAlpha(100))
                   ),
                 ),
-                child: IconButtonWidget(
+                child: _loading ? const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: SizedBox(
+                    width: 24,height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ) :
+                IconButtonWidget(
                   color: colors.primary,
                   icon: PhosphorIconsRegular.mapPin,
                   onPressed: () async {
+                    setState(() { _loading = true;});
                     final pos = await LocationService.getCurrentPosition();
                     latControl.text = pos?.latitude.toString() ?? '';
                     longControl.text = pos?.longitude.toString() ?? '';
+                    setState(() { _loading = false;});
                     return widget.onChanged(pos);
                   },
                 ),
