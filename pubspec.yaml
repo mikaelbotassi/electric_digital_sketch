@@ -16,7 +16,7 @@ dependencies:
   tabler_icons_plus: ^3.44.0
   collection: ^1.19.1
   mb_color_picker: ^0.0.2
-  electric_shapes: ^1.0.5
+  electric_shapes: ^1.0.10
   geolocator: ^14.0.2
 
 dev_dependencies:
