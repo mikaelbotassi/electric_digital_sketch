@@ -1,21 +1,30 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
+
+import 'package:electric_digital_sketch/ui/widgets/result_appbar/result_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_io/io.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({required this.image, super.key});
-  final Uint8List image;
+  const ResultPage({
+    required this.imageFile,
+    this.onConfirm,
+    super.key,
+  });
+
+  final File imageFile;
+  final FutureOr<void> Function(File imageFile)? onConfirm;
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Resultado',
-          style: textTheme.titleLarge,
+      appBar: ResultAppbar(file: imageFile, onConfirm: onConfirm),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Image.file(imageFile),
+          ),
         ),
-      ),
-      body: Center(
-        child: Image.memory(image),
       ),
     );
   }

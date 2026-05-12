@@ -1,4 +1,5 @@
 import 'package:electric_digital_sketch/ui/result_page.dart';
+import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
 import 'package:electric_digital_sketch/ui/widgets/core/icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
@@ -9,7 +10,7 @@ class LayerOptionItem extends StatelessWidget {
   const LayerOptionItem({
     required this.controller,
     required this.item,
-    super.key
+    super.key,
   });
 
   final PainterController controller;
@@ -25,8 +26,8 @@ class LayerOptionItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: isSelected ? colors.primary: colors.onSurface.withAlpha(50),
-          width: isSelected ? 2 : 1
+          color: isSelected ? colors.primary : colors.onSurface.withAlpha(50),
+          width: isSelected ? 2 : 1,
         ),
       ),
       child: Row(
@@ -45,24 +46,33 @@ class LayerOptionItem extends StatelessWidget {
             },
           ),
           IconButtonWidget(
-            icon:TablerIcons.photo,
+            icon: TablerIcons.photo,
             color: colors.primary,
             onPressed: () async {
-              final image =
-              await controller.renderItem(item, enableRotation: true);
-              if (image != null && context.mounted) {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute<dynamic>(
-                    builder: (context) => ResultPage(image: image),
-                  ),
-                );
-              }
+              final image = await controller.renderItem(
+                item,
+                enableRotation: true,
+              );
+              if (image == null) return;
+
+              final imageFile =
+                  await ElectricSketchController.writeImageBytesToTemp(
+                    image,
+                    fileNamePrefix: 'electric_sketch_layer',
+                  );
+              if (!context.mounted) return;
+
+              await Navigator.push(
+                context,
+                MaterialPageRoute<dynamic>(
+                  builder: (context) => ResultPage(imageFile: imageFile),
+                ),
+              );
             },
           ),
           IconButtonWidget(
             icon: TablerIcons.arrowDown,
-            onPressed:  () {
+            onPressed: () {
               controller.updateLayerIndex(item, item.layer.index - 1);
             },
           ),

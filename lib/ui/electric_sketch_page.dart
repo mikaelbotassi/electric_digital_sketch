@@ -8,19 +8,23 @@ import 'package:electric_digital_sketch/ui/widgets/toolbar/toolbar_widget.dart';
 import 'package:electric_digital_sketch/utils/helpers/listener_service.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_painter/simple_painter.dart';
+import 'package:universal_io/io.dart';
 
 class ElectricSketchPage extends StatefulWidget {
+  const ElectricSketchPage({
+    this.onConfirm,
+    super.key,
+  });
 
-  const ElectricSketchPage({super.key});
+  final FutureOr<void> Function(File imageFile)? onConfirm;
 
   @override
   State<ElectricSketchPage> createState() => _ElectricSketchPageState();
 }
 
 class _ElectricSketchPageState extends State<ElectricSketchPage> {
-
-  final controller = ElectricSketchController();
-  final _overlayKey = GlobalKey();
+  final ElectricSketchController controller = ElectricSketchController();
+  final GlobalKey _overlayKey = GlobalKey();
 
   @override
   void initState() {
@@ -34,7 +38,10 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
       listenable: controller,
       builder: (context, _) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBarWidget(controller: controller),
+        appBar: AppBarWidget(
+          controller: controller,
+          onConfirm: widget.onConfirm,
+        ),
         bottomNavigationBar: BottomBarWidget(controller: controller),
         body: LayoutBuilder(
           builder: (context, constraints) {
@@ -65,7 +72,9 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
                               painter: _PendingLinePointPainter(
                                 point: _toOverlayOffsetFromCanvas(
                                   overlayKey: _overlayKey,
-                                  canvasKey: controller.painterController.repaintBoundaryKey,
+                                  canvasKey: controller
+                                      .painterController
+                                      .repaintBoundaryKey,
                                   canvasPoint: controller.pendingLinePoint!,
                                 ),
                               ),
@@ -77,7 +86,7 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
                 Positioned(
                   top: 12,
                   left: 12,
-                  child: ToolbarWidget(controller: controller)
+                  child: ToolbarWidget(controller: controller),
                 ),
               ],
             );

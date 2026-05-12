@@ -17,7 +17,11 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const ElectricSketchPage(),
+      home: ElectricSketchPage(
+        onConfirm: (file){
+          print(file);
+        },
+      ),
     );
   }
 }

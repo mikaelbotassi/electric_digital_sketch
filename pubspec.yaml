@@ -18,6 +18,8 @@ dependencies:
   mb_color_picker: ^0.0.2
   electric_shapes: ^1.0.10
   geolocator: ^14.0.2
+  file_selector: ^1.1.0
+  share_plus: ^11.1.0
 
 dev_dependencies:
   very_good_analysis: ^10.2.0
