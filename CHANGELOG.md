@@ -2,6 +2,13 @@
 
 All notable changes to this package will be documented in this file.
 
+## 1.0.2
+
+### Chore
+
+- Bumped package version to `1.0.2` in `pubspec.yaml`.
+- Refined grammar in `README.md` for the `onConfirm` callback description.
+
 ## 1.0.1
 
 ### Docs

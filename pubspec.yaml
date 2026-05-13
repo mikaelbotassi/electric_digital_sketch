@@ -2,7 +2,7 @@ name: electric_digital_sketch
 description: >-
   Offline-first Flutter package for drawing, annotating and exporting
   electrical network sketches.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/mikaelbotassi/electric_digital_sketch
 repository: https://github.com/mikaelbotassi/electric_digital_sketch
 issue_tracker: https://github.com/mikaelbotassi/electric_digital_sketch/issues

@@ -91,7 +91,7 @@ When the user opens the result preview:
 - the editor renders the current sketch as a PNG file
 - the result page shows the generated image
 - the user can share/save the file
-- if `onConfirm` is provided, the page exposes a confirm action and returns the
+- if `onConfirm` is provided, the page exposes confirm action and returns the
   generated `File`
 
 Example:
