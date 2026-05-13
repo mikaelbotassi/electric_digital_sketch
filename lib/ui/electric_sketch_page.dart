@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/ui/viewmodels/electric_sketch_controller.dart';
@@ -20,9 +21,13 @@ class ElectricSketchPage extends StatefulWidget {
   /// When [onConfirm] is provided, the generated image file is returned after
   /// the user confirms the exported result.
   const ElectricSketchPage({
+    this.initialBackgroundImage,
     this.onConfirm,
     super.key,
   });
+
+  /// Optional image file applied as the initial canvas background.
+  final File? initialBackgroundImage;
 
   /// Called when the user confirms the generated result image.
   final FutureOr<void> Function(File imageFile)? onConfirm;
@@ -32,13 +37,29 @@ class ElectricSketchPage extends StatefulWidget {
 }
 
 class _ElectricSketchPageState extends State<ElectricSketchPage> {
-  final ElectricSketchController controller = ElectricSketchController();
+  late final ElectricSketchController controller;
   final GlobalKey _overlayKey = GlobalKey();
+  int _backgroundLoadRequestId = 0;
 
   @override
   void initState() {
     super.initState();
+    controller = ElectricSketchController();
     unawaited(ListenerService().listen(controller.painterController, context));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    unawaited(_syncInitialBackgroundImage());
+  }
+
+  @override
+  void didUpdateWidget(covariant ElectricSketchPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialBackgroundImage != widget.initialBackgroundImage) {
+      unawaited(_syncInitialBackgroundImage());
+    }
   }
 
   @override
@@ -103,6 +124,33 @@ class _ElectricSketchPageState extends State<ElectricSketchPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _syncInitialBackgroundImage() async {
+    final imageFile = widget.initialBackgroundImage;
+    final requestId = ++_backgroundLoadRequestId;
+
+    if (imageFile == null) {
+      controller.setInitialBackgroundImage(null);
+      return;
+    }
+
+    Uint8List? imageBytes;
+    try {
+      imageBytes = await imageFile.readAsBytes();
+    } on Exception catch (_) {
+      if (!mounted || requestId != _backgroundLoadRequestId) {
+        return;
+      }
+      controller.setInitialBackgroundImage(null);
+      return;
+    }
+
+    if (!mounted || requestId != _backgroundLoadRequestId) {
+      return;
+    }
+
+    controller.setInitialBackgroundImage(imageBytes);
   }
 }
 

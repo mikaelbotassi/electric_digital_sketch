@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:electric_digital_sketch/domain/enums/line_style.dart';
 import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/utils/extensions/painter_controller_extension.dart';
@@ -13,11 +14,13 @@ import 'package:universal_io/io.dart';
 /// It coordinates the active tool, line creation workflow and the underlying
 /// [PainterController] used to manipulate the canvas.
 class ElectricSketchController extends ChangeNotifier {
+  ElectricSketchController() : painterController = PainterController();
+
   /// Default pixel ratio used when exporting the sketch as PNG.
   static const double defaultExportPixelRatio = 4;
 
   /// Underlying painter controller used to render and mutate the canvas.
-  final painterController = PainterController();
+  final PainterController painterController;
   Offset? _pendingLinePoint;
   LineStyle _lineStyle = LineStyle.redeBTExistente;
   SketchMode _mode = SketchMode.select;
@@ -91,6 +94,13 @@ class ElectricSketchController extends ChangeNotifier {
 
   Future<void> setBackgroundImage(Uint8List image) async {
     await painterController.setBackgroundImage(image);
+    notifyListeners();
+  }
+
+  void setInitialBackgroundImage(Uint8List? image) {
+    painterController.cacheBackgroundImage = null;
+    painterController.background.image = image;
+    painterController.refreshValue();
     notifyListeners();
   }
 
@@ -182,7 +192,7 @@ class ElectricSketchController extends ChangeNotifier {
     final downloadsDirectory = _resolveDownloadsDirectory();
     if (downloadsDirectory == null) return null;
 
-    if (!await downloadsDirectory.exists()) {
+    if (!downloadsDirectory.existsSync()) {
       await downloadsDirectory.create(recursive: true);
     }
 
