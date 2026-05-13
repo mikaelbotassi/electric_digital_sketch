@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -7,6 +6,10 @@ import 'package:electric_digital_sketch/domain/enums/sketch_mode.dart';
 import 'package:electric_digital_sketch/utils/extensions/painter_controller_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:simple_painter/simple_painter.dart';
+// The package does not expose background sizing publicly, so this import is
+// required to keep the initial image canvas aligned with the image ratio.
+// ignore: implementation_imports
+import 'package:simple_painter/src/controllers/drawables/background/painter_background.dart';
 import 'package:universal_io/io.dart';
 
 /// Controller responsible for the editor state and export helpers.
@@ -21,6 +24,7 @@ class ElectricSketchController extends ChangeNotifier {
 
   /// Underlying painter controller used to render and mutate the canvas.
   final PainterController painterController;
+  late final Size _defaultCanvasSize = painterController.value.settings.size;
   Offset? _pendingLinePoint;
   LineStyle _lineStyle = LineStyle.redeBTExistente;
   SketchMode _mode = SketchMode.select;
@@ -93,6 +97,7 @@ class ElectricSketchController extends ChangeNotifier {
   }
 
   Future<void> setBackgroundImage(Uint8List image) async {
+    _applyBackgroundSize(image);
     await painterController.setBackgroundImage(image);
     notifyListeners();
   }
@@ -100,8 +105,98 @@ class ElectricSketchController extends ChangeNotifier {
   void setInitialBackgroundImage(Uint8List? image) {
     painterController.cacheBackgroundImage = null;
     painterController.background.image = image;
+    _applyBackgroundSize(image);
     painterController.refreshValue();
     notifyListeners();
+  }
+
+  void _applyBackgroundSize(Uint8List? image) {
+    if (image == null) {
+      _updateCanvasSize(_defaultCanvasSize);
+      painterController.background = PainterBackground(
+        width: _defaultCanvasSize.width,
+        height: _defaultCanvasSize.height,
+      );
+      return;
+    }
+
+    final imageSize = _decodeImageSize(image) ?? _defaultCanvasSize;
+    _updateCanvasSize(imageSize);
+    painterController.background = PainterBackground(
+      image: image,
+      width: imageSize.width,
+      height: imageSize.height,
+    );
+  }
+
+  Size? _decodeImageSize(Uint8List image) {
+    if (image.length >= 24 &&
+        image[0] == 0x89 &&
+        image[1] == 0x50 &&
+        image[2] == 0x4E &&
+        image[3] == 0x47) {
+      final data = ByteData.sublistView(image);
+      return Size(
+        data.getUint32(16).toDouble(),
+        data.getUint32(20).toDouble(),
+      );
+    }
+
+    if (image.length >= 2 && image[0] == 0xFF && image[1] == 0xD8) {
+      var offset = 2;
+      while (offset + 8 < image.length) {
+        if (image[offset] != 0xFF) {
+          offset++;
+          continue;
+        }
+
+        final marker = image[offset + 1];
+        offset += 2;
+
+        if (marker == 0xD8 || marker == 0xD9) {
+          continue;
+        }
+
+        if (offset + 2 > image.length) {
+          break;
+        }
+
+        final length = (image[offset] << 8) | image[offset + 1];
+        if (length < 2 || offset + length > image.length) {
+          break;
+        }
+
+        final isStartOfFrame =
+            marker >= 0xC0 &&
+            marker <= 0xCF &&
+            marker != 0xC4 &&
+            marker != 0xC8 &&
+            marker != 0xCC;
+        if (isStartOfFrame) {
+          return Size(
+            ((image[offset + 5] << 8) | image[offset + 6]).toDouble(),
+            ((image[offset + 3] << 8) | image[offset + 4]).toDouble(),
+          );
+        }
+
+        offset += length;
+      }
+    }
+
+    return null;
+  }
+
+  void _updateCanvasSize(Size size) {
+    final settings = painterController.value.settings;
+    painterController.value = painterController.value.copyWith(
+      settings: PainterSettings(
+        text: settings.text,
+        brush: settings.brush,
+        erase: settings.erase,
+        size: size,
+        itemDragHandleColor: settings.itemDragHandleColor,
+      ),
+    );
   }
 
   /// Updates the line style used by [registerLinePoint].
