@@ -84,6 +84,21 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+To start the editor with an existing image as the background:
+
+```dart
+import 'dart:io';
+
+Widget build(BuildContext context) {
+  return ElectricSketchPage(
+    initialBackgroundImage: File('/path/to/sketch-base.png'),
+    onConfirm: (file) async {
+      // Handle the generated PNG file.
+    },
+  );
+}
+```
+
 ## Export and confirmation flow
 
 When the user opens the result preview:

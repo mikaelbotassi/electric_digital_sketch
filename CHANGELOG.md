@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented in this file.
 
+## 1.0.3
+
+### Added
+
+- Added `initialBackgroundImage` to `ElectricSketchPage` so host apps can open the editor with a predefined background image file.
+
 ## 1.0.2
 
 ### Chore
